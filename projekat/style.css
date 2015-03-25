@@ -1,0 +1,196 @@
+
+*{
+margin-left:auto;
+margin-right:auto;
+margin-top:auto;
+
+}
+header.izbornik {
+
+	font-family: 'Source Sans Pro', sans-serif,'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 15pt;
+	line-height: 2em;
+	
+    letter-spacing: 4px;
+
+	color: SlateBlue;
+	text-shadow: 0 0 0.5px rgba(58,57,57,0.25);
+    background-color: lavender;
+	height :120px;
+	position:relative;
+	top:-10px;
+	
+}
+.header_underline{
+background-color: white;
+height: 4px;
+width: 100%;
+position:relative;
+margin-top: 0.8in;;
+}
+header>a{
+	position:relative;
+	top:80px;
+	text-decoration: none;
+	color: #0066b3;
+}
+
+a {	
+	
+	color: #0066b3;
+}
+header>a:hover {
+	color: SlateBlue;
+	background-color: white;
+	padding:10px;
+	
+}
+
+a:hover {
+	color: SlateBlue;
+	
+	
+	}
+
+a:active {
+	color: #0077b3;
+}
+
+
+body {
+background-image: url(naocale.jpg);
+background-repeat: no-repeat;
+
+	font-size: 13pt;
+  line-height: 1.3em;
+}
+h1{
+
+	color:SlateBlue;
+	font-size: 21pt;
+  line-height: 1.7em;
+		font-weight: 400;
+    letter-spacing: 2px;
+	font-weight:bold;
+		text-align: center;
+}
+
+h2{
+
+	color:SlateBlue;
+	font-size: 18pt;
+  line-height: 1.7em;
+		font-weight: 300;
+    letter-spacing: 3px;
+	font-weight:bold;
+}
+.dodatna {
+margin-left: 0.2in;
+margin-right: 0.2in;
+margin-top: 0.2in;
+margin-bottom: 0.5in;
+}
+strong,label {
+	color:SlateBlue;
+	font-size: 12pt;
+  line-height: 1.3em;
+}
+.podloga{
+margin-left: 1in;
+margin-right: 1in;
+margin-top: 0.2in;
+background:white;
+
+}
+li{
+	color:SlateBlue;
+}
+spam{
+	color:black;
+}
+h3{
+color:SlateBlue;
+}
+
+.lijeviKontakt{
+margin-left: 0.2in;
+margin-right: 0.2in;
+margin-top: 0.2in;
+margin-bottom: 0.5in;
+float:left;
+
+}
+p{
+clear:both;
+}
+img {
+ width:350px;
+ height:250px;
+}
+.desniKontakt{
+margin-left: 0.2in;
+margin-right: 0.5in;
+margin-top: 1in;
+margin-bottom: 0.5in;
+
+float:right;
+}
+
+input {
+font-size: 13pt;
+  line-height: 1.5em;
+font-weight: 250;
+    letter-spacing: 3px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, tr, td {
+  
+	 border: 2px solid SlateBlue;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 50px;
+}
+td{
+	text-align: center;
+}
+
+.scroll{
+ height: 350px;
+ overflow:auto;
+}
+
+.scroll2{
+ height: 650px;
+ overflow:auto;
+}
+
+span > ul{
+    list-style: square inside url("slikica.png");
+
+}
+header > img{
+ width:100px;
+ height:70px;
+ margin-top: 20px;
+ margin-left:200px;
+ float :left;
+ transform: rotate(-25deg);
+}
+
+footer#Copy{
+    position: relative;
+    background-color: SlateBlue;
+    text-align: center;
+    top:360px;
+    color: white;
+    font-size:17px;
+}
