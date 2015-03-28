@@ -16,23 +16,25 @@ header.izbornik {
 	color: SlateBlue;
 	text-shadow: 0 0 0.5px rgba(58,57,57,0.25);
     background-color: lavender;
-	height :120px;
+
 	position:relative;
 	top:-10px;
+	width:100%;
 	
 }
 .header_underline{
 background-color: white;
 height: 4px;
-width: 100%;
 position:relative;
-margin-top: 0.8in;;
+margin-top: 0.8in;
+width:100%;
 }
 header>a{
 	position:relative;
 	top:80px;
 	text-decoration: none;
 	color: #0066b3;
+	width:100%;
 }
 
 a {	
@@ -43,7 +45,7 @@ header>a:hover {
 	color: SlateBlue;
 	background-color: white;
 	padding:10px;
-	
+	width:100%;
 }
 
 a:hover {
@@ -85,10 +87,10 @@ h2{
 	font-weight:bold;
 }
 .dodatna {
-margin-left: 0.2in;
-margin-right: 0.2in;
-margin-top: 0.2in;
-margin-bottom: 0.5in;
+margin-left: 2%;
+margin-right: 2%;
+margin-top: 2%;
+margin-bottom: 4%;
 }
 strong,label {
 	color:SlateBlue;
@@ -96,9 +98,9 @@ strong,label {
   line-height: 1.3em;
 }
 .podloga{
-margin-left: 1in;
-margin-right: 1in;
-margin-top: 0.2in;
+margin-left: 7%;
+margin-right: 7%;
+margin-top: 2%;
 background:white;
 
 }
@@ -108,43 +110,49 @@ li{
 spam{
 	color:black;
 }
-h3{
+h3,th{
 color:SlateBlue;
 }
 
 .lijeviKontakt{
-margin-left: 0.2in;
-margin-right: 0.2in;
-margin-top: 0.2in;
-margin-bottom: 0.5in;
+margin-left: 2%;
+margin-top: 2%;
+margin-bottom: 4%;
+margin-right: 2%;
 float:left;
 
 }
 p{
 clear:both;
+text-align:center;
+
 }
 img {
- width:350px;
- height:250px;
+ width:325px;
+ height:225px;
 }
 .desniKontakt{
-margin-left: 0.2in;
-margin-right: 0.5in;
-margin-top: 1in;
-margin-bottom: 0.5in;
+margin-left: 2%;
+margin-right: 2%;
+margin-top: 7%;
+margin-bottom: 4%;
 
-float:right;
+float:left;
+}
+hr{
+width:80%;
 }
 
 input {
 font-size: 13pt;
   line-height: 1.5em;
-font-weight: 250;
     letter-spacing: 3px;
 }
 
 table {
     border-collapse: collapse;
+    width: 100%;
+
 }
 
 table, tr, td {
@@ -152,9 +160,6 @@ table, tr, td {
 	 border: 2px solid SlateBlue;
 }
 
-table {
-    width: 100%;
-}
 
 tr {
     height: 50px;
@@ -173,15 +178,15 @@ td{
  overflow:auto;
 }
 
-span > ul{
+.lista1{
     list-style: square inside url("slikica.png");
 
 }
 header > img{
- width:100px;
- height:70px;
+ width:12%;
+ height:7%;
  margin-top: 20px;
- margin-left:200px;
+ margin-left:15%;
  float :left;
  transform: rotate(-25deg);
 }
@@ -190,7 +195,12 @@ footer#Copy{
     position: relative;
     background-color: SlateBlue;
     text-align: center;
-    top:360px;
+   
     color: white;
     font-size:17px;
+}
+
+textarea {
+width: 250px;
+height: 110px;
 }
