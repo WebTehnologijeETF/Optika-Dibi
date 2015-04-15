@@ -12,11 +12,39 @@
 <body >
 <header class="izbornik">
 	<img src="logo.jpg" alt="sl">
-<a href="Naslovnica.html" >Naslovnica</a>&nbsp;&nbsp;
-<a href="ONama.html">O nama</a>&nbsp;&nbsp;
-<a href="Katalog.html">Katalog proizvoda</a>&nbsp;&nbsp;
-<a href="Usluge.html">Usluge</a>&nbsp;&nbsp;
-<a href="Kontakt.html">Kontakt</a>
+
+<ul id="sddm">
+    <li><a href="Naslovnica.html" 
+        onmouseover="mopen('m1')" 
+        onmouseout="mclosetime()">Naslovnica</a>
+        <div id="m1" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="Naslovnica.html">Dioptrijski okviri</a>
+        <a href="Naslovnica.html">Oko 30% - 60% popusta</a>
+        <a href="Naslovnica.html">Kontaktne leće i otopine</a>
+		<a href="Naslovnica.html">Varilux 1+1</a>
+        </div>
+    </li>
+    <li><a href="ONama.html" >O nama</a></li>
+    <li><a href="Katalog.html"
+	 onmouseover="mopen('m2')" 
+        onmouseout="mclosetime()">Katalog proizvoda</a>
+	       <div id="m2" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="Katalog.html">Dioptrijski okviri</a>
+        <a href="Katalog.html">Dioptrijske leće</a>
+        <a href="Katalog.html">Sunčane naočale</a>
+        <a href="Katalog.html">Accessories </a>
+        </div>
+	
+	
+	</li>
+    <li><a href="Usluge.html">Usluge</a></li>
+    <li><a href="Kontakt.html">Kontakt</a></li>
+</ul>
+<div style="clear:both"></div>
 <div class="header_underline"> </div>
 </header>
 
@@ -66,22 +94,20 @@
 <div class="desniKontakt">
 
 <form>
-		<label>Ime *</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label >E-mail *</label><br>
-		<input type="text" value=""  >&nbsp;&nbsp;
-		<input type="email" value="" ><br><br>
-
-		<label>Telefon *</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label title="prvi znak mora biti slovo" >Ime *</label><br>
+		<input type="text" value="" title="prvi znak mora biti slovo" id ="ime"><img alt="slika5" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika1"><label title="slovo i može cifra" class="not" id="upozorenje1" >Ime mora činiti slova i cifre</label><br>
+		<label title="unesite validan email" >E-mail *</label><br>
+		<input type="email" value=""  id ="email" title="unesite validan email"><img alt="slika6" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika2"><label title="ediba@nesto.bla" class="not" id="upozorenje2" >Oblik e-maila mora biti ediba@nesto.bla</label><br>
+		<label title="Telefon mora biti u obliku xxx-xxx">Telefon *</label><br>
+		<input type="text" value="" id ="telefon" title="Telefon mora biti u obliku xxx-xxx" ><img alt="slika7" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika3"><label title="xxx-xxx" class="not" id="upozorenje3" >Unesite broj u obliku xxx-xxx ili xxxxxx ili xxx.xxx</label><br>
 			<label>Godište </label><br>
- 
-	<input type="text" value=""   >&nbsp;&nbsp;
-	<input type="number" name="quantity" min="1910" max="1997"><br><br>
-		<label >Poruka</label><br>
-		<textarea ></textarea><br><br>
+		<input type="number" name="quantity" min="1910" max="1997" id ="godiste"><img alt="slika8" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika4"><label title="unesite godište u validnom opsegu" class="not" id="upozorenje4" >Unesite godište u validnom opsegu</label><br><br>
+		<label title="Morate unijeti validno ime">Poruka </label><br>
+		<textarea title="Morate unijeti validno ime" id ="poruka" ></textarea><br><br>
 
-		&nbsp;&nbsp;<input type="submit" value="Pošalji poruku" ><br><br>
+		&nbsp;&nbsp;<input type="submit" value="Pošalji poruku" id ="dugme"><br><br>
 		<label >Search Google:</label>
-  <input type="search" name="googlesearch">
+  <input type="search" name="googlesearch" id ="pretrazi">
 
 </form>
 </div>
@@ -91,5 +117,6 @@
     Copyright &copy; Ediba Žugor 2015.
 </footer>				
 </div>		
-
+<script src="jsFile.js"></script>
+<script src="meniSkripta.js"></script>
 </body>

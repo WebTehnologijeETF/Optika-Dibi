@@ -13,13 +13,39 @@
 	
 <body >
 <header class="izbornik">
-	<img src="logo.jpg" alt="se">
-<a href="Naslovnica.html" >Naslovnica</a>&nbsp;&nbsp;
-<a href="ONama.html">O nama</a>&nbsp;&nbsp;
-
-<a href="Katalog.html">Katalog proizvoda</a>&nbsp;&nbsp;
-<a href="Usluge.html">Usluge</a>&nbsp;&nbsp;
-<a href="Kontakt.html">Kontakt</a>
+<img src="logo.jpg" alt="slikaca">
+<ul id="sddm">
+    <li><a href="Naslovnica.html" 
+        onmouseover="mopen('m1')" 
+        onmouseout="mclosetime()">Naslovnica</a>
+        <div id="m1" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="Naslovnica.html">Dioptrijski okviri</a>
+        <a href="Naslovnica.html">Oko 30% - 60% popusta</a>
+        <a href="Naslovnica.html">Kontaktne leće i otopine</a>
+		<a href="Naslovnica.html">Varilux 1+1</a>
+        </div>
+    </li>
+    <li><a href="ONama.html" >O nama</a></li>
+    <li><a href="Katalog.html"
+	 onmouseover="mopen('m2')" 
+        onmouseout="mclosetime()">Katalog proizvoda</a>
+	       <div id="m2" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="Katalog.html">Dioptrijski okviri</a>
+        <a href="Katalog.html">Dioptrijske leće</a>
+        <a href="Katalog.html">Sunčane naočale</a>
+        <a href="Katalog.html">Accessories </a>
+        </div>
+	
+	
+	</li>
+    <li><a href="Usluge.html">Usluge</a></li>
+    <li><a href="Kontakt.html">Kontakt</a></li>
+</ul>
+<div style="clear:both"></div>
 <div class="header_underline"> </div>
 </header>
 
@@ -153,5 +179,5 @@
 <footer id="Copy">
     Copyright &copy; Ediba Žugor 2015.
 </footer>
-
+<script src="meniSkripta.js"></script>
 </body>
