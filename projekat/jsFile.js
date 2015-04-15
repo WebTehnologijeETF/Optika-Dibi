@@ -12,33 +12,33 @@ imeTextBox.removeEventListener("onblur");
 emailTextBox.removeEventListener("onblur");
 teljefonTextBox.removeEventListener("onblur");
 GodisteTextBox.removeEventListener("onblur");
-dugmic.disabled=true;
-porukaTextBox.disabled=true;
+dugmic.disabled = true;
+porukaTextBox.disabled = true;
 
 function check(){
 	
 	if(cek1 && cek2 && cek3 && cek4){
-		dugmic.disabled=false;
+		dugmic.disabled = false;
 	}
 	else {
-		dugmic.disabled=true;
+		dugmic.disabled = true;
 	}
-};
+}
 
 imeTextBox.addEventListener("blur", function(){
-var ime= imeTextBox.value;
+var ime = imeTextBox.value;
 
     if (ime !== '') {
         var regex = /^[A-Za-z0-9][^\s]{0,20}$/;
         if (ime.match(regex)) {
             imeTextBox.style.backgroundColor = "#80FF80";
-			document.getElementById("slika1").style.visibility="visible";
-			document.getElementById("slika1").src='https://zamger.etf.unsa.ba/images/16x16/zad_ok.png';
-			document.getElementById("slika1").class="OK";
-			document.getElementById("upozorenje1").style.visibility="hidden";
-			document.getElementById("upozorenje1").class="yes";
-			cek1=true;
-			porukaTextBox.disabled=false;
+			document.getElementById("slika1").style.visibility = "visible";
+			document.getElementById("slika1").src = 'https://zamger.etf.unsa.ba/images/16x16/zad_ok.png';
+			document.getElementById("slika1").class = "OK";
+			document.getElementById("upozorenje1").style.visibility = "hidden";
+			document.getElementById("upozorenje1").class = "yes";
+			cek1 = true;
+			porukaTextBox.disabled = false;
 		
         } else {
             imeTextBox.style.backgroundColor = "#FF8080";
