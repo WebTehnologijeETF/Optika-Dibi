@@ -7,44 +7,46 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	
+	<script src="ucitavanje.js"></script>
+<script src="meniSkripta.js"></script>
+
 	</head>
 	
-<body >
+<body id ="main">
 <header class="izbornik">
 	<img src="logo.jpg" alt="slikaca">
 
 <ul id="sddm">
-    <li><a href="Naslovnica.html" 
+   <li><a 
         onmouseover="mopen('m1')" 
-        onmouseout="mclosetime()">Naslovnica</a>
+        onmouseout="mclosetime()"
+		onclick="Load('Naslovnica.html');">Naslovnica</a>
         <div id="m1" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a href="Naslovnica.html">Dioptrijski okviri</a>
-        <a href="Naslovnica.html">Oko 30% - 60% popusta</a>
-        <a href="Naslovnica.html">Kontaktne leće i otopine</a>
-		<a href="Naslovnica.html">Varilux 1+1</a>
+        <a  onclick="Load('Naslovnica.html');">Dioptrijski okviri</a>
+        <a  onclick="Load('Naslovnica.html');">Oko 30% - 60% popusta</a>
+        <a  onclick="Load('Naslovnica.html');">Kontaktne leće i otopine</a>
+		<a onclick="Load('Naslovnica.html');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a href="ONama.html" >O nama</a></li>
-    <li><a href="Katalog.html"
+    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.html');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a href="Katalog.html">Dioptrijski okviri</a>
-        <a href="Katalog.html">Dioptrijske leće</a>
-        <a href="Katalog.html">Sunčane naočale</a>
-        <a href="Katalog.html">Accessories </a>
-        <a href="Katalog.html">Accessories </a>
+        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.html');">Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a href="Usluge.html">Usluge</a></li>
-    <li><a href="Kontakt.html">Kontakt</a></li>
+    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Kontakt.html');">Kontakt</a></li>
 </ul>
 <div style="clear:both"></div>
 <div class="header_underline"> </div>
@@ -113,6 +115,38 @@ Nudimo razne privlačne mogućnosti plaćanja koje neće odmah pretrpati Vaš ra
 
 </div>
 
+<div class="tabela_dodavanja">
+
+
+    <form class="usluge">
+        <br>
+        <div> Odaberite opciju: </div>
+        <select id="akcija" onchange="izvrsi()">
+        <option value = "Dodavanje">Dodavanje</option>
+        <option value = "Promjena">Promjena</option>
+        <option value = "Brisanje">Brisanje</option>
+        </select><br><br>
+        <label>Naziv: </label><br>
+        <input type="text" id="inaziv"><br>
+        <label>Cijena: </label><br>
+        <textarea id="cijena"></textarea><br>
+        <label>Opis: </label><br>
+        <textarea id="op"></textarea><br>
+		 <label>Količina: </label><br>
+        <textarea id="kol"></textarea><br>
+      <br><br>
+        <input class="dodaj" type="button" value="Dodaj" onClick="change()">
+    </form>
+ <div><input class="ispisiusluge" type="button" value="Prikaz tabele" onclick="prikazi()"></div><br><br><br>
+        <div class="ostaleusluge">
+            <table class="usluge-opis">
+                
+            </table>
+        </div>
+    
+
+</div>
+
 <p>
 </div>
 </div>
@@ -120,5 +154,5 @@ Nudimo razne privlačne mogućnosti plaćanja koje neće odmah pretrpati Vaš ra
 <footer id="Copy">
     Copyright &copy; Ediba Žugor 2015.
 </footer>
-<script src="meniSkripta.js"></script>
+
 </body>

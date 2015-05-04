@@ -35,6 +35,7 @@ header>a{
 	text-decoration: none;
 	color: #0066b3;
 	width:100%;
+	z-index:10;
 }
 
 a {	
@@ -158,7 +159,7 @@ margin-right: 2%;
 margin-top: 7%;
 margin-bottom: 4%;
 
-float:left;
+float: none;
 }
 hr{
 width:80%;
@@ -229,7 +230,7 @@ height: 110px;
 #sddm
 {	margin: 0;
 	padding: 0;
-	z-index: 30;
+
 	
 font-family: 'Source Sans Pro', sans-serif,'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 15pt;
@@ -240,6 +241,7 @@ font-family: 'Source Sans Pro', sans-serif,'Lucida Grande', 'Helvetica Neue', He
 	position:relative;
 	top:10px;
 	width:100%;
+	z-index: 10;
 	
 	}
 
@@ -248,7 +250,9 @@ font-family: 'Source Sans Pro', sans-serif,'Lucida Grande', 'Helvetica Neue', He
 	padding: 0;
 	list-style: none;
 	float: left;
-	font: bold 11px arial}
+	font: bold 11px arial;
+
+}
 
 #sddm li a
 {	display: block;
@@ -260,6 +264,7 @@ font-family: 'Source Sans Pro', sans-serif,'Lucida Grande', 'Helvetica Neue', He
 	text-align: center;
 	text-decoration: none;
 	position:relative;
+
 	}
 
 #sddm li a:hover
@@ -269,6 +274,7 @@ color: SlateBlue;
 	background-color: white;
 	padding:10px;
 	width:100%;
+
 }
 
 #sddm div
@@ -294,3 +300,13 @@ color: SlateBlue;
 	#sddm div a:hover
 	{	background: lavender;
 		color: SlateBlue}
+
+
+.desniKontakt > img{
+	width:25%;
+	height:25%;
+	margin-top:  20px;
+	margin-left: 5%;
+
+
+}
