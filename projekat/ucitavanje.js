@@ -11,7 +11,7 @@ function Load(link)
 				document.getElementById('main').innerHTML = changeMain(ajax.responseText);
 				if (link=="Usluge.html")
 					KreirajTabelu();
-				if (link=="Kontakt.html")
+				if (link=="Kontakt.php")
 					pozovi();
 				
 				
@@ -41,12 +41,9 @@ function changeMain(tijelo)
    return tijelo.slice(x + 1, y);
 }
 
-
-function poziv(broj)
+function dodaj()
 {
-
-    if (broj===1){
-        var s = '<br>'
+    var s = '<br>' 
             +'<div>Odaberite opciju: </div>'
             +'<select id="akcija" onchange="izvrsi()">'
             +'<option value = "Dodavanje">Dodavanje</option>'
@@ -59,70 +56,13 @@ function poziv(broj)
             +'<textarea id="cijena"></textarea><br>'
             +'<label>Opis: </label><br>'
             +'<textarea id="op"></textarea><br>'
-            +'<label>Količina: </label><br>'
-            +'<textarea id="kol"></textarea><br>'
-
+			+'<label>Količina: </label><br>'
+			+'<textarea id="kol"></textarea><br>'
+          
             +'<input class="dodaj" type="button" value="Dodaj" onClick="change()">';
-
-        return s;
-
-    }
-
-    else if (broj===2){
-
-        var s = '<br>'
-            +'<div>Odaberite opciju: </div>'
-            +'<select id="akcija" onchange="izvrsi()">'
-            +'<option value = "Brisanje">Brisanje</option>'
-            +'<option value = "Promjena">Promjena</option>'
-            +'<option value = "Dodavanje">Dodavanje</option>'
-            +'</select><br><br>'
-            +'<label>ID: </label><br>'
-            +'<input type="text" id="tablica" onchange="ebrisanje()"><br>'
-            +'<label>Naziv: </label><br>'
-            +'<input type="text" id="inaziv" disabled><br>'
-            +'<label>Cijena: </label><br>'
-            +'<textarea id="cijena" disabled></textarea><br>'
-            +'<label>Opis: </label><br>'
-            +'<textarea id="op" disabled></textarea><br>'
-            +'<label>Količina: </label><br>'
-            +'<textarea id="kol"></textarea><br>'
-
-            +'<input class="dodaj" id="obrisi" type="button" value="Brisanje" onClick="change()" disabled>';
-
-        return s;
-
-
-    }
-    else {
-
-        var s = '<br>'
-            +'<div>Odaberite opciju: </div>'
-            +'<select id="akcija" onchange="izvrsi()">'
-            +'<option value = "Promjena">Promjena</option>'
-            +'<option value = "Dodavanje">Dodavanje</option>'
-            +'<option value = "Brisanje">Brisanje</option>'
-            +'</select><br><br>'
-            +'<label>ID: </label><br>'
-            +'<input type="text" id="tablica" onchange="edodaj()"><br>'
-            +'<label>Naziv: </label><br>'
-            +'<input type="text" id="inaziv" disabled><br>'
-            +'<label>Cijena: </label><br>'
-            +'<textarea id="cijena" disabled></textarea><br>'
-            +'<label>Opis: </label><br>'
-            +'<textarea id="op" disabled></textarea><br>'
-            +'<label>Količina: </label><br>'
-            +'<textarea id="kol"></textarea><br>'
-
-            +'<input class="dodaj" id="promijeni" type="button" value="Promijeni" onClick="change()" disabled>';
-
-        return s;
-
-    }
-
-
+    
+    return s;
 }
-
 
 function ebrisanje()
 {
@@ -176,6 +116,30 @@ function ebrisanje()
             
 }
 
+function brisanje()
+{
+        var s = '<br>' 
+            +'<div>Odaberite opciju: </div>'
+            +'<select id="akcija" onchange="izvrsi()">'
+            +'<option value = "Brisanje">Brisanje</option>'
+            +'<option value = "Promjena">Promjena</option>'
+            +'<option value = "Dodavanje">Dodavanje</option>'
+            +'</select><br><br>'
+            +'<label>ID: </label><br>'
+            +'<input type="text" id="tablica" onchange="ebrisanje()"><br>'
+            +'<label>Naziv: </label><br>'
+            +'<input type="text" id="inaziv" disabled><br>'
+            +'<label>Cijena: </label><br>'
+            +'<textarea id="cijena" disabled></textarea><br>'
+            +'<label>Opis: </label><br>'
+            +'<textarea id="op" disabled></textarea><br>'
+			+'<label>Količina: </label><br>'
+			+'<textarea id="kol"></textarea><br>'
+        
+            +'<input class="dodaj" id="obrisi" type="button" value="Brisanje" onClick="change()" disabled>';
+    
+    return s;
+}
 
 function edodaj()
 {
@@ -242,6 +206,30 @@ function edodaj()
             
 }
 
+function promjena()
+{
+    var s = '<br>' 
+            +'<div>Odaberite opciju: </div>'
+            +'<select id="akcija" onchange="izvrsi()">'
+            +'<option value = "Promjena">Promjena</option>'
+            +'<option value = "Dodavanje">Dodavanje</option>'
+            +'<option value = "Brisanje">Brisanje</option>'
+            +'</select><br><br>'
+            +'<label>ID: </label><br>'
+            +'<input type="text" id="tablica" onchange="edodaj()"><br>'
+            +'<label>Naziv: </label><br>'
+            +'<input type="text" id="inaziv" disabled><br>'
+            +'<label>Cijena: </label><br>'
+            +'<textarea id="cijena" disabled></textarea><br>'
+            +'<label>Opis: </label><br>'
+            +'<textarea id="op" disabled></textarea><br>'
+			+'<label>Količina: </label><br>'
+			+'<textarea id="kol"></textarea><br>'
+            
+            +'<input class="dodaj" id="promijeni" type="button" value="Promijeni" onClick="change()" disabled>';
+    
+    return s;
+}
 
 
 
@@ -255,25 +243,26 @@ function censor(censor) {
     if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
       return '[Unknown]';
 
-    ++i;
+    ++i; // so we know we aren't using the original object anymore
 
     return value;  
   }
 }
 
+//USLUGE
 function izvrsi()
 {
     var izbor = document.getElementById("akcija").value.toLowerCase();
     switch(izbor)
     {
             case "dodavanje": 
-                document.getElementsByClassName('usluge')[0].innerHTML = poziv(1);
+                document.getElementsByClassName('usluge')[0].innerHTML = dodaj();
             break;
             case "brisanje": 
-                document.getElementsByClassName('usluge')[0].innerHTML = poziv(2);
+                document.getElementsByClassName('usluge')[0].innerHTML = brisanje();
             break;
             case "promjena":
-                document.getElementsByClassName('usluge')[0].innerHTML = poziv(3);
+                document.getElementsByClassName('usluge')[0].innerHTML = promjena();
             break;
     }
 }
@@ -325,13 +314,13 @@ function change()
 
 
 
-function KreirajTabelu(objekat)
+function KreirajTabelu(proizvodi)
 {
     var s="";
-    if (undefined!==objekat ){
-    for(var i = 0; i< objekat.length; i++)
+    if (undefined!==proizvodi ){
+    for(var i = 0; i< proizvodi.length; i++)
     {
-        var p = objekat[i];
+        var p = proizvodi[i];
         s+= "<tr><td class='margina'>ID: "+p.id+"</td></tr>";
         s+="<tr><th class='naziv'>"+p.naziv+"</th></tr>";
         s+="<tr><td class='podnaslov'>Cijena</td></tr>";
@@ -341,12 +330,22 @@ function KreirajTabelu(objekat)
 		 s+="<tr><td class='kolicina'>"+p.kolicina+"</td></tr>";
 
     } 
-
+    console.log(s)
     return s;}
     else return;
 }
 
-
+function podesiVelicine(proizvodi)
+{
+    for(var i = 0; i<proizvodi.length; i++)
+    {
+        var p = proizvodi[i];
+      
+       document.getElementsByClassName('margina')[i].style.paddingTop="20px"; 
+       document.getElementsByClassName("usluge-opis")[i].style.width="50%";     
+    } 
+    
+}
 
 function prikazi()
 {
@@ -364,13 +363,7 @@ function prikazi()
                 proizvodi = JSON.parse(tekst);
           
               usluge.innerHTML = KreirajTabelu(proizvodi);
-                for(var i = 0; i<proizvodi.length; i++)
-                {
-                    var p = proizvodi[i];
-
-                    document.getElementsByClassName('margina')[i].style.paddingTop="20px";
-                    document.getElementsByClassName("usluge-opis")[i].style.width="50%";
-                }
+                podesiVelicine(proizvodi);
             }
         }
         if (ajax.readyState == 4 && ajax.status == 404)
