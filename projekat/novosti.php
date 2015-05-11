@@ -3,17 +3,10 @@
 <div class="lijeviKontakt">
 <div class="scroll2">
 <?php
-/*
-$d = new DateTime("05.06.2015. 12:10:20.\r\n");
-$d1 = new DateTime("05.06.2015. 12:10:21.\r\n");
-$dsad = new DateTime();
-$dsad->setTimezone(new DateTimeZone("Europe/Sarajevo"));
-if ($d < $d1) echo "Tacno"; else echo "Baha";
-*/
+
 
 $fajl = scandir("novosti");
- // Zato sto su na Windowsu uvijek prva dva fajla . i .. Nije najbolje rijesenje jer nece raditi na linux-u. Pretpostavljam da ce ovo zavisiti od toga koji je OS na serveru koji mi daje hosting
- //TODO: Dodati i za linux
+
 $novosti = array();
 $datumi = array();
 

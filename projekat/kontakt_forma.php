@@ -12,8 +12,8 @@
  
    <?php
 // define variables and set to empty values
-$name = $email = $telefon = $godiste= $comment= "";
- $nameErr= $emailErr =$telErr= $godErr="";
+$name = $email = $telefon = $godiste= $comment=$pass=$pass2= "";
+ $nameErr= $emailErr =$telErr= $godErr=$passErr=$passErr2="";
  
  
 
@@ -25,7 +25,16 @@ $name = $email = $telefon = $godiste= $comment= "";
  $ima=false;
  $valid1=true;
  $valid2=true;
-
+ $valid_pass=false;
+ $prikazi ='Potvrda_sigurnosti.php';
+ 
+ 
+	 function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["name"])) {
@@ -56,17 +65,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if (empty($_POST["tel"])) {
-    $telefon = "Morate unijeti telefon";
+    $telErr = "Morate unijeti telefon";
 	$cek3=false;
   } else {
-    $telefon = test_input($_POST["tel"]);
-	$cek3=false;
+    $telefon = $_POST["tel"];
+	
 	
 	if (!preg_match("/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})$/",$telefon)){
 		$telErr= "Nije validan format telefona";
+		$cek3=false;
 	}
-		else {$telErr="Validan broj";
-	$cek3=true;}
+		else {
+			$telErr="Validan broj";
+	$cek3=true;
+	}
   }
 
   if (empty($_POST["poruka"])) {
@@ -79,8 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $godiste = "";
 	$cek4=true;
   } else {
-    $godiste = test_input($_POST["godiste"]);
-	if ( (int)$godiste<1910 || (int)$godiste<1997 ){
+    $godiste = $_POST["godiste"];
+	if (!is_numeric($godiste))
+	{
+		$godErr="nije unijet broj";
+		$cek4=false;
+		
+	}
+	else if ( (int)$godiste<1910 || (int)$godiste<1997 ){
 		$godErr="Godiste nije u validnom opsegu";
 		$cek4=false;
 	}
@@ -89,22 +107,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$cek4=true;
 	}
   }
+  
+    if (empty($_POST["pass"])) {
+    $pass = "";
+  } else {
+    $pass = test_input($_POST["pass"]);
+  }
+  
+
+  
+    if (empty($_POST["pass2"])) {
+    $pass2 = "";
+	if ($pass==""){
+		$valid_pass2=true;
+	$passErr2="";
+		
+	}
+	else {
+		$valid_pass2=false;
+		$passErr2="Ponovite password";
+	
+	}
+  } else {
+		$pass2 = test_input($_POST["pass2"]);
+	if ( $pass2!=$pass ){
+		$passErr2="Passwordi nisu identicni";
+		$valid_pass2=false;
+	}
+	else {
+		$passErr2="Identican password";
+		$valid_pass2=true;
+	}
+  }
+  
+  
  
 }
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
-if ($cek1 && $cek2 && $cek3 && $cek4){
+
+if ($cek1 && $cek2 && $cek3 && $cek4 && $valid_pass2){
 	$validnost=true;
-	
+	 $prikazi ='kontakt2.php';
+
 }
+	 
+
+	 
 
 ?>
+
+
+
 
 
 

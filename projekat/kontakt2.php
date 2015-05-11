@@ -26,8 +26,16 @@ echo "<br><br>Ako ste pogresno popunili formu, mozete ispod prepraviti unesene p
 
 		 echo '<div class="title">' . 'Promjena' . '</div>';
 		 echo '<form>' . 'Name: ' . '<input type="text" name="name" value="' . $name . '">' . '<br/>' . 'email: ' . '<input type="email" name="email" value="' . $email. '">' . '<br/>' . 'Broj telefona: ' . '<input type="text" name="tel" value="' . $telefon . '">' . '<br/>' . '<button class="my-stylish-button" name="action" type="submit" value="add">Slanje</button>'.'<button class="my-stylish-button" name="action" type="submit" value="add">Reset</button>'; '</form>'; 
-		 
 	
 
+ ini_set("SMTP", "webmail.etf.unsa.ba");
+	 ini_set("smtp_port", "25");
+	 ini_set('sendmail_from', 'ezugor1@etf.unsa.ba');
+	/* $mess="Opet kafa?"; 
+	 $headers="From: ezugor1@etf.unsa.ba"; 
+	 mail('ezugor1@etf.unsa.ba', 'Kafa_style', $mess, $headers); */
+	  mail('ezugor1@etf.unsa.ba', 'spam', "spam", 'From:ezugor1@etf.unsa.ba');
+     //mail('ezugor1@etf.unsa.ba', 'Kafa_style', "Ne znam fkt sta da napisem, nemam ideje", 'From:ezugor1@etf.unsa.ba'.'\r\n'.'CC: ezugor1@etf.unsa.ba');
 
 ?>
+
