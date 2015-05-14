@@ -41,7 +41,7 @@ for ($i=0; $i<count($novosti); $i++):
     $imaDetaljnije = false;
 
     for ($j=4; $j<count($sadrzaj);$j++) {
-        if($sadrzaj[$j] == "--\r\n") {
+        if($sadrzaj[$j] == "--".PHP_EOL) {
             $imaDetaljnije = true;
             continue;
         }
