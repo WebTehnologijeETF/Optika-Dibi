@@ -29,7 +29,7 @@ ima=false;
  valid1=true;
 valid2=true;
 
-
+/*
 imeTextBox.removeEventListener("onblur");
 emailTextBox.removeEventListener("onblur");
 teljefonTextBox.removeEventListener("onblur");
@@ -348,7 +348,7 @@ var valuta= valutaTextBox.value;
 	
 	 check();	
 		
-});
+});*/
 
 
 

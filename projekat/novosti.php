@@ -1,10 +1,10 @@
 
-	
+	<script src="ucitavanje.js"></script>
 <div class="lijeviKontakt">
 <div class="scroll2">
 <?php
 
-
+header('Content-type: text/html; charset=utf-8');
 $fajl = scandir("novosti");
 
 $novosti = array();
@@ -75,13 +75,23 @@ for ($i=0; $i<count($novosti); $i++):
  	<?php echo " <p>$opis</p>"; ?>
 	
 	
-	<?php if($imaDetaljnije == true): ?>
-	<details >
-                <summary>Detaljnije</summary>
-					<?php echo " $detaljnije"; ?>
-               
-            </details>
-	     <?php endif; ?>	
+	
+	
+	 <input type="hidden" name="stil" value='<?php echo $slika; ?>'>
+                 <?php if($imaDetaljnije): 
+                    $detaljnije = "'" .str_replace( PHP_EOL, '<br/>', $detaljnije )."'";
+                    $datum = "'" .str_replace( PHP_EOL, '<br/>', $sadrzaj[0] )."'";
+                    $naslov ="'" . str_replace( PHP_EOL, '<br/>', $sadrzaj[2] )."'";
+                    $slika = "'" .str_replace( PHP_EOL, '<br/>', $sadrzaj[3] )."'";
+                    $tekst = "'" .str_replace( PHP_EOL, '<br/>', $opis )."'";
+                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $sadrzaj[1] )."'";
+                ?>
+
+         <?php echo '<input class="detaljnije" value="Detaljnije" onclick="novosti('.$datum.','.$autor.','.$naslov.','.$slika.','.$tekst.','.$detaljnije.'); return false;" type="button">'; 
+   
+    ?> 
+
+        <?php endif;?>
     
    
   </div>

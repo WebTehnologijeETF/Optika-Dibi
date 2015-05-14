@@ -8,10 +8,12 @@ function Load(link)
 			if (ajax.readyState == 4 && ajax.status == 200 )
 			{
 				
-				document.getElementById('main').innerHTML = changeMain(ajax.responseText);
+	console.log("RESPOSNSE" + ajax.responseText);
+				//document.getElementById('main').innerHTML = changeMain(ajax.responseText);
+                document.getElementById('main').innerHTML = ajax.responseText;
 				if (link=="Usluge.html")
 					KreirajTabelu();
-				if (link=="Kontakt.php")
+				if (link=="Kontakt.php" )
 					pozovi();
 				
 				
@@ -22,7 +24,7 @@ function Load(link)
 				
 				}
 		}
-	
+	console.log(link);
 			ajax.open("GET", link, true);
 			ajax.send();
 
@@ -62,6 +64,30 @@ function dodaj()
             +'<input class="dodaj" type="button" value="Dodaj" onClick="change()">';
     
     return s;
+}
+
+
+
+function novosti(datum,autor,naslov,slika,tekst,det)
+{
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() 
+        {
+            var obj = document.getElementById('main') ;
+            if (ajax.readyState == 4 && ajax.status == 200)
+            {
+                obj.innerHTML = ajax.responseText;
+            }
+            else if (ajax.readyState == 4 && ajax.status == 404)
+                obj.innerHTML = "Greska: nepoznat URL";
+        }
+        
+        var s = "detaljnije.php?"+"det="+det+"&autor="+autor+"&datum="+datum+"&naslov="+naslov+"&slika="+slika+"&tekst="+tekst;
+
+      console.log(s);
+        ajax.open("POST", s, true);
+        ajax.send();
+
 }
 
 function ebrisanje()

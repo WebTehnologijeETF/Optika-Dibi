@@ -54,40 +54,55 @@
 </ul>
 <div style="clear:both"></div>
 <div class="header_underline"> </div>
-
 </header>
-<?php
-header('Content-type: text/html; charset=utf-8');
-?>
+
 <div class="podloga" >
 	<div class="dodatna"><br><br>
 	<em>Ključ 20-godišnjeg uspjeha Jo-Jo optike je briga za klijenta, profesionalnost, individualni pristup, ljubaznost i raznolika ponuda te cijene pristupačne svakom klijentu.</em>
 	<br>
-<?php include 'novosti.php';?>
-	<div class="desniKontakt">
-						
-							
-			<ul>
+	<?php
+header('Content-type: text/html; charset=utf-8');
 
+?>
 
-				<li>	stručno savjetovanje i mjerenje vida</li>
-					<li>		servis svih vrsta naočala (popravka naočala)</li>
-					<li>		mogućnost plaćanja gotovinom i karticama</li>
-						
-						
-						
-						<li>	stručna pomoć pri odabiru okvira i  leća</li>
-							<li>	kontaktne leće i otopine</li>
-							
-					<li>	primamo recepte HZZO-a</li>
-				
+	<div class="spesl">		
+					 <?php
+		
+        $autor = $_GET['autor'];
+        $detaljnije = $_GET['det'];
+        $datum = $_GET['datum'];
+        $slika = $_GET['slika'];
+        $naslov = $_GET['naslov'];
+        $tekst = $_GET['tekst'];
+		
+		   $slika = str_replace("'", "", $slika);
+        $slika = str_replace("<br/>", "", $slika);
+        $autor = str_replace("'", "", $autor);
+        $datum = str_replace("'", "", $datum);
+        $naslov = str_replace("'", "", $naslov);
+        $detaljnije = str_replace("'", "", $detaljnije);
+        $tekst = str_replace("'", "", $tekst);
+     echo '<div class="content-naslov">Novosti</div>';
+    
+         echo '<div class="novost">'.
+            '<div class="naslov">'.
+                 '<div>'.
+                     '<div class="datum">'.
+                       
+                          "$datum".
+                      '</div>'.              
+            ' <div class="autor">'.$autor.'</div>'.
+                  '</div>'.
+                $naslov.
+            '</div>'.
+            '<div class="tekst">'.
+                "<div ><img height='300' width='600' src='$slika'></img></div>"?>
+            <?php echo $tekst.'</div>'.'<div class="tekst">'.$detaljnije.'</div>'.
+            '<div class="border-bottom"></div>'.
+       '</div>';
+    ?>
 
-					<li>kvalitetna i brza izrada naočala </li>
-					<li>	velik izbor sunčanih i dioptrijskih okvira</li>
-						<li>	najbolji omjer cijene i kvalitete</li>
-				
-
-					</ul>	
+	
 
 			
 </div>
@@ -103,3 +118,5 @@ header('Content-type: text/html; charset=utf-8');
 </footer>
 
 </body>
+	
+ 

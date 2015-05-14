@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$cek1=false;
   } else {
     $name = test_input($_POST["name"]);
-		if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+	if (trim($name) == '' ) $nameErr = "Morate unijeti ime";
+	else	if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
  	 $nameErr = "Samo znakovi i blanko znakovi su dozvoljeni";
 	 $cek1=false;
 	}
@@ -56,7 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$cek2=false;
   } else {
     $email = test_input($_POST["email"]);
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	if (trim($email) == '' ) $emailErr = "Morate unijeti email";
+	else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   	$emailErr = "Nije validan email formata";
 	$cek2=false;
 }
@@ -69,9 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$cek3=false;
   } else {
     $telefon = $_POST["tel"];
+		if (trim($telefon) == '' ) $telErr = "Morate unijeti telefon";
 	
-	
-	if (!preg_match("/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})$/",$telefon)){
+	else if (!preg_match("/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})$/",$telefon)){
 		$telErr= "Nije validan format telefona";
 		$cek3=false;
 	}
@@ -87,18 +89,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $comment = test_input($_POST["poruka"]);
   }
 
-  if (empty($_POST["godiste"])) {
+  if (empty($_POST["num"])) {
     $godiste = "";
 	$cek4=true;
   } else {
-    $godiste = $_POST["godiste"];
+    $godiste = $_POST["num"];
 	if (!is_numeric($godiste))
 	{
 		$godErr="nije unijet broj";
 		$cek4=false;
 		
 	}
-	else if ( (int)$godiste<1910 || (int)$godiste<1997 ){
+	else if ( intval($godiste)<1910 || intval($godiste)>1997 ){
 		$godErr="Godiste nije u validnom opsegu";
 		$cek4=false;
 	}
@@ -148,15 +150,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if ($cek1 && $cek2 && $cek3 && $cek4 && $valid_pass2){
 	$validnost=true;
+
 	 $prikazi ='kontakt2.php';
-
 }
-	 
 
-	 
+ 
 
 ?>
-
+  
 
 
 
