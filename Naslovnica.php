@@ -15,6 +15,8 @@
 	</head>
 	
 <body id ="main" >
+
+
 <header class="izbornik">
 <img src="logo.jpg" alt="sk">
 
@@ -91,7 +93,6 @@ header('Content-type: text/html; charset=utf-8');
 
 			
 </div>
-
 
 
 <p>
