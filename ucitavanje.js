@@ -31,6 +31,9 @@ function Load(link)
     }
 	
 	
+	
+	
+	
 function changeMain(tijelo) 
 { 
    var x = tijelo.indexOf("<body");
@@ -89,6 +92,32 @@ function novosti(datum,autor,naslov,slika,tekst,det)
         ajax.send();
 
 }
+
+
+function komentari(ID)
+{
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() 
+        {
+            var obj = document.getElementById('main') ;
+            if (ajax.readyState == 4 && ajax.status == 200)
+            {
+                obj.innerHTML = ajax.responseText;
+            }
+            else if (ajax.readyState == 4 && ajax.status == 404)
+                obj.innerHTML = "Greska: nepoznat URL";
+        }
+        
+		
+		ajax.open("POST", "Komentari.php", true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send("ID=" + ID );
+		
+      console.log(s);
+}
+
+
+
 
 function ebrisanje()
 {

@@ -22,6 +22,16 @@ header.izbornik {
 	width:100%;
 	
 }
+
+.lijevo{
+margin-left: 1%;
+margin-top: 1%;
+margin-bottom: 1%;
+margin-right: 1%;
+float:right;
+
+
+}
 .header_underline{
 background-color: white;
 height: 4px;

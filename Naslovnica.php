@@ -54,6 +54,16 @@
     <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php'); ">Kontakt</a></li>
 </ul>
+<br>
+<div class="lijevo" >
+<form   method="post" enctype="multipart/form-data" action="Admin.php" > 
+ <label title="Unesite username" >Username: </label><br>                                                                  
+		<input type="text"  title="Username" id ="login1" name="login1"  ><br>
+		<label title="Unesite password" >Password: </label><br>                                                                  
+		<input type="text"  title="Sifra" id ="login2" name="login2"  ><br>
+	<input class="my-stylish-button" type="submit" value="Login" id ="login">
+</form>
+</div>
 <div style="clear:both"></div>
 <div class="header_underline"> </div>
 

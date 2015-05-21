@@ -17,8 +17,20 @@ header('Content-type: text/html; charset=utf-8');
           exit();
      }
 
+	 
+	 
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $kom->exec("set names utf8");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     if (!$rez) {
+          $greska = $kom->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+	
+	 
 
-     foreach ($rezultat as $Novosti) {
+  foreach ($rezultat as $Novosti) {
    ?>
 	 
 
@@ -39,7 +51,7 @@ header('Content-type: text/html; charset=utf-8');
     <?php endif; ?>
 	
  	<?php echo " <p>". $Novosti['Tekst']."</p>"; ?>
-	
+<?php $ID="";?>
 	
 	
 	 <input type="hidden" name="stil" value='<?php echo $Novosti['Slika']; ?>'>
@@ -50,63 +62,39 @@ header('Content-type: text/html; charset=utf-8');
                     $slika = "'" .str_replace( PHP_EOL, '<br/>', $Novosti['Slika'] )."'";
                     $tekst = "'" .str_replace( PHP_EOL, '<br/>',  $Novosti['Tekst'] )."'";
                     $autor = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["Autor"] )."'";
+					$ID = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["IDNovosti"] )."'";
+            endif;
+		
+		$brojac=0;
+		
+    
+  foreach ($rez as $Koment) {
+	if ($Koment['Novosti']==$Novosti['IDNovosti']){
+		
+		$brojac=$brojac+1;
+		echo $brojac;
+	}    
+ }
+ ?> <input type="hidden" name="kk" value='<?php echo $Koment['kk']; ?>'>
+                 
+                <?php    $email = "'" .str_replace( PHP_EOL, '<br/>', $Koment['Email'] )."'";
+                    $datum = "'" .str_replace( PHP_EOL, '<br/>', date('d.m.Y. (h:i)', $Koment['vrijeme2']) )."'";
+                  
+                    $tekst = "'" .str_replace( PHP_EOL, '<br/>',  $Koment['Tekst'] )."'";
+                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $Koment["Autor"] )."'";
+					$ID = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["IDNovosti"] )."'";
                 ?>
 				
-	       <?php echo '<input class="detaljnije" value="Detaljnije" onclick="novosti('.$datum.','.$autor.','.$naslov.','.$slika.','.$tekst.','.$detaljnije.'); return false;" type="button">'; 
-   
-    ?> 
-
-        <?php endif;?>
+				
+	       <input class="komentari" value="<?php echo $brojac."Komentara "; ?>" onclick="komentari(<?php echo $ID; ?>); return false;" type="button">; 
     
+	<?php
+	 }
+	?>
 
 	
-	<?php }
 	
-	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
-     $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
-     if (!$rez) {
-          $greska = $kom->errorInfo();
-          print "SQL greška: " . $greska[2];
-          exit();
-     }
-	
-	
-	
-     foreach ($rez as $Koment) {
-   ?>
-	 
-
-	
-	<?php echo "<br>"."<strong>"."Autor: "."</strong>".$Koment["Autor"]."<br>"; ?>
-	
-	<?php echo "<strong>"."Datum objave:"."</strong>".date('d.m.Y. (h:i)', $Koment['vrijeme2'])."<br>"; ?>
-	
-	
-	<?php echo "<h3>" . ucfirst(strtolower( $Koment['Naslov'])) . "</h3>";?>
-	
-	     <?php if($Koment["Slika"] != NULL): ?>
-	 
-	 <?php echo " <img src=".$Koment['Slika']." alt='Slika '>"; ?>
-	 
-	<?php echo "<h2 >"."<a href='" .$Koment["Slika"] . "' title='slikica'>"." </a>"."</h2>"; ?>
-	 	
-    <?php endif; ?>
-	
- 	<?php echo " <p>". $Koment['Tekst']."</p>"; ?>
-	    
-
-	
-	<?php }
-	
-	
-	
-	
-	
-	
-	
-	
-?>
+   
 <?php
 /*$fajl = scandir("novosti");
 
