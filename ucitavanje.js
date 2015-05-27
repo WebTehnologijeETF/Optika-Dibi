@@ -94,6 +94,8 @@ function novosti(datum,autor,naslov,slika,tekst,det)
 }
 
 
+
+
 function komentari(ID)
 {
         var ajax = new XMLHttpRequest();
@@ -113,7 +115,6 @@ function komentari(ID)
 		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		ajax.send("ID=" + ID );
 		
-      console.log(s);
 }
 
 

@@ -66,7 +66,18 @@ header('Content-type: text/html; charset=utf-8');
 ?>
 
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
-
+<br>
+	<?php session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php }?>
 <br><br><br>
 Izaberite od ponudenog:
 <br>
@@ -110,8 +121,8 @@ Izaberite od ponudenog:
 <?php
 
     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
-     $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDKorisnik, Username, Password, Email from Korisnik ");
+     $veza->query("set names utf8");
+     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -124,22 +135,21 @@ Izaberite od ponudenog:
 
 
 
-<form   method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" > 
+<form   method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" > 
 	
 	
 	 <table>
-	 <tr><th>ID:</th><th>Username:</th><th>Password:</th><th>Email:</th><th>Dugme</th> </tr>
+	 <tr><th>Username:</th><th>Password:</th><th>Email:</th><th>Dugme</th> </tr>
 	 
 	  <?php foreach ($rezultat as $Korisnik) {?>	
 	<tr>
-	 <td><input type="text" id ="idKorisnik" name="idKorisnik"  value="<?php echo $Korisnik["IDKorisnik"];?>" disabled=true > 
-	 </td>
+	
 	 <td>	<input type="text"   id ="us" name="us"  value="<?php echo $Korisnik["Username"];?>" disabled=true >
 	 </td>
 	 
 	 <td><input type="text"   id ="Password" name="Password"  value="<?php echo $Korisnik["Password"];?>" disabled=true >
 	 </td>
-	 <td><input type="text"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>" disabled=true >
+	 <td><input type="email"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>" disabled=true >
 	 </td>
 	 </tr>
 	 
@@ -147,16 +157,15 @@ Izaberite od ponudenog:
 	 
 	 
 	 	<tr>
-	 <td><input type="text" id ="idKorisnik" name="idKorisnik"  disabled=true > 
-	 </td>
+	 
 	 <td>	<input type="text"   id ="Username2" name="Username2"  >
 	 </td>
 	 
 	 <td><input type="text"   id ="Password2" name="Password2"  >
 	 </td>
-	 <td><input type="text"   id ="Email2" name="Email2" >
+	 <td><input type="email"   id ="Email2" name="Email2" >
 	 </td>
-	 	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit"name="obrisi" id ="ObrisiDugme" onclick="value='<?php echo  $Korisnik["IDKorisnik"];?>'"></td>
+	 	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit"name="obrisi" id ="ObrisiDugme" onclick="value='<?php echo  $Korisnik["Username"];?>'"></td>
 	 </tr>
 	 </table>
 		
@@ -165,14 +174,17 @@ Izaberite od ponudenog:
 
 	 <?php
 	 
+
+	 
 	 	$brisanjeID=$NekaNovina="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $name=$_POST["Username2"];
 	  $pass=$_POST["Password2"];
 	  $email=$_POST["Email2"];
-	  	$rezultat= $veza-> query( "INSERT INTO Komentar (Username, Password , Email)
-    VALUES ('$name', '$pass', '$email')"
+	  	$rezultat= $veza-> prepare( "INSERT INTO Korisnik (Username, Password , Email)
+    VALUES (?,md5(?),?)"
 	);
+	$rezultat->execute(array($name,$pass,$email));
 	     if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];

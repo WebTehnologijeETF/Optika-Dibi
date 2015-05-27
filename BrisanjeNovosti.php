@@ -66,7 +66,18 @@ header('Content-type: text/html; charset=utf-8');
 ?>
 
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
-
+<br>
+	<?php session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php }?>
 <br><br><br>
 Izaberite od ponudenog:
 <br>
@@ -168,13 +179,15 @@ Izaberite od ponudenog:
 
 
 	 <?php
-	 
+	  
 	 	$brisanjeID=$NekaNovina="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
     $brisanjeID=$_POST["obrisi"];
-	$rezultat = $veza->query("delete from Komentar where Novosti ='$brisanjeID'");
-	$rez = $kom->query("delete from Novosti where IDNovosti ='$brisanjeID'");
+	$rezultat = $veza->prepare("delete from Komentar where Novosti =?");
+	$rezultat->execute(array($brisanjeID));
+	$rez = $kom->prepare("delete from Novosti where IDNovosti =?");
+	$rez->execute(array($brisanjeID));
      if (!$rez || !$rezultat) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];

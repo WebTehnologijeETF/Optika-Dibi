@@ -61,10 +61,96 @@
 	<em>Ključ 20-godišnjeg uspjeha Jo-Jo optike je briga za klijenta, profesionalnost, individualni pristup, ljubaznost i raznolika ponuda te cijene pristupačne svakom klijentu.</em>
 	<br>
 	<?php
+	
 header('Content-type: text/html; charset=utf-8');
 
-?>
 
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza->exec("set names utf8");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
+     if (!$rezultat) {
+          $greska = $veza->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+
+	 
+	 
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $kom->exec("set names utf8");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     if (!$rez) {
+          $greska = $kom->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+  
+
+	 session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php 
+}
+else {
+
+
+	 $validnost=false;
+	 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+	 
+		 if (isset($_SESSION['login1'])){
+			 		 	 session_start();
+		 $username = $_SESSION['login1'];
+			$validnost=true;
+		 
+		 
+		 ?>
+		 
+		 Logirani ste kao : <?php echo $username?>
+		 <a href ="logOut">logOut<br>
+		 <?php }
+	 else if (isset($_REQUEST['login1'])) {
+
+		$username = $_REQUEST['login1'];
+  $v = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $v->exec("set names utf8");
+     $r = $v->query("select Username, Password, Email from Korisnik ");
+	
+     if (!$r) {
+          $greska = $v->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+
+	  $name=$_POST["login1"];
+	  $pass=$_POST["login2"];
+	
+	 foreach ($r as $Kor){
+		 if ($name==$Kor['Username'] && $pass==$Kor['Password']){
+		 $validnost=true;
+		 print $name." ".$pass;
+		 $_SESSION['username'] = $username;}
+		 
+	 }
+	     if (!$r) {
+          $greska = $v->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+    
+}}}
+
+	
+  
+  if ($validnost){?>
+	  
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
 
 <br><br><br>
@@ -108,30 +194,19 @@ Izaberite od ponudenog:
 	</li>
    
 </ul>
-<?php
-
-
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
-     $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
-     if (!$rezultat) {
-          $greska = $veza->errorInfo();
-          print "SQL greška: " . $greska[2];
-          exit();
-     }
-
-	 
-	 
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
-     $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
-     if (!$rez) {
-          $greska = $kom->errorInfo();
-          print "SQL greška: " . $greska[2];
-          exit();
-     }
-	
-   ?>
+	  
+	<?php  
+	  
+  }
+  else {
+  ?>
+   
+   Pogresno ste unijeli username ili password
+   
+  <?php 
+  }?>
+   
+   
 
 </div></div>
 

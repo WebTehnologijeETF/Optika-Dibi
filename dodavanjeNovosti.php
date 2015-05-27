@@ -66,7 +66,18 @@ header('Content-type: text/html; charset=utf-8');
 ?>
 
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
-
+<br>
+	<?php session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php }?>
 <br><br><br>
 Izaberite od ponudenog:
 <br>
@@ -111,9 +122,11 @@ Izaberite od ponudenog:
 <?php
 
 
+
+
      $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -124,7 +137,7 @@ Izaberite od ponudenog:
 	 
 	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -141,7 +154,7 @@ Izaberite od ponudenog:
 	
 	
 	 <table>
-	  <tr><th>ID:</th><th>Autor:</th><th>Naslov:</th><th>Datum objave:</th><th>Tekst:</th><th>Dugme</th> </title>
+	  <tr><th>ID:</th><th>Autor:</th><th>Naslov:</th><th>Datum objave:</th><th>Tekst:</th><th>Detaljnije:</th><th>Slika:</th><th>Dugme</th> </title>
  <?php foreach ($rezultat as $Novosti) {?>	
 	<tr>
 	 <td><input type="text"  title="prvi znak mora biti slovo" id ="idNovosti" name="idNovosti"  value="<?php echo $Novosti["IDNovosti"];?>" disabled=true > 
@@ -154,6 +167,10 @@ Izaberite od ponudenog:
 	 <td><input type="text"  id ="datumObjaveNovosti" name="datumObjaveNovosti"  value="<?php echo date('d.m.Y. (h:i)', $Novosti['vrijeme2']);?>" disabled=true >
 	 </td>
 	 <td><input type="text"   id ="tekstNovosti" name="tekstNovosti"  value="<?php echo $Novosti["Tekst"];?>" disabled=true >
+	</td>
+	<td><input type="text"   id ="detaljnije" name="detaljnije"  value="<?php echo $Novosti["Detaljnije"];?>"  disabled=true>
+	</td>
+	<td><input type="text"   id ="slika" name="slika"  value="<?php echo $Novosti["Slika"];?>"  disabled=true>
 	</td>
 	 </tr>
 	 
@@ -171,6 +188,10 @@ Izaberite od ponudenog:
 	 </td>
 	 <td><input type="text"   id ="tekstNovosti2" name="tekstNovosti2"   >
 	 </td>
+	 <td><input type="text"   id ="detaljnije" name="detaljnije2"   >
+	</td>
+	<td><input type="text"   id ="slika" name="slika2"  >
+	</td>
 	 	 <td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit" value="Dodaj" id ="Dodaj" ></td>
 	 </tr>
 	 
@@ -188,9 +209,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $name=$_POST["autorNovosti2"];
 	  $naslov=$_POST["naslovNovosti2"];
 	  $tekst=$_POST["tekstNovosti2"];
-	  	$rezultat= $veza-> query( "INSERT INTO Novosti (Autor, Naslov , Tekst)
-    VALUES ('$name', '$naslov', '$tekst')"
+	  $detaljnije=$_POST["detaljnije2"];
+	  $slika=$_POST["slika2"];
+	  	$rezultat= $veza-> prepare( "INSERT INTO Novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
+    VALUES (?,?,?,?,?)"
 	);
+	$rezultat->execute(array($name,$naslov,$tekst,$detaljnije,$slika));
 	     if (!$rezultat) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];

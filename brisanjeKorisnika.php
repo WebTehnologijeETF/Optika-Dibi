@@ -66,7 +66,18 @@ header('Content-type: text/html; charset=utf-8');
 ?>
 
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
-
+<br>
+	<?php session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php }?>
 <br><br><br>
 Izaberite od ponudenog:
 <br>
@@ -112,7 +123,7 @@ Izaberite od ponudenog:
 
      $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDKorisnik, Username, Password, Email from Korisnik ");
+     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -122,14 +133,15 @@ Izaberite od ponudenog:
 	<br><br><br>
 
 <form   method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" > 
-	
+	<?php $brojac=0;?>
 	
 	 <table>
-	 <tr><th>ID:</th><th>Username:</th><th>Password:</th><th>Email:</th><th>Dugme</th> </tr>
- <?php foreach ($rezultat as $Korisnik) {?>	
+	 <tr><th>Username:</th><th>Password:</th><th>Email:</th><th>Dugme</th> </tr>
+ <?php foreach ($rezultat as $Korisnik) {
+	 $brojac++;
+	 ?>	
 	<tr>
-	 <td><input type="text" id ="idKorisnik" name="idKorisnik"  value="<?php echo $Korisnik["IDKorisnik"];?>" disabled=true > 
-	 </td>
+	
 	 <td>	<input type="text"   id ="Username" name="Username"  value="<?php echo $Korisnik["Username"];?>" disabled=true >
 	 </td>
 	 
@@ -137,7 +149,7 @@ Izaberite od ponudenog:
 	 </td>
 	 <td><input type="text"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>" disabled=true >
 	 </td>
-	 	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit"name="obrisi" id ="ObrisiDugme" onclick="value='<?php echo  $Korisnik["IDKorisnik"];?>'"></td>
+	 	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit"name="obrisi" id ="ObrisiDugme" onclick="value='<?php echo  $Korisnik["Username"];?>'"></td>
 	 </tr>
 	 <?php }?>
 	 </table>
@@ -150,15 +162,20 @@ Izaberite od ponudenog:
 
 	 <?php
 	 
+
+	 
 	 	$brisanjeID=$NekaNovina="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $brisanjeID=$_POST["obrisi"];
-	$rezultat = $veza->query("delete from Korisnik where IDKorisnik ='$brisanjeID'");
+	if ($brojac==1){echo "greska ";}
+	else {
+	$rezultat = $veza->prepare("delete from Korisnik where Username =?");
+	$rezultat->execute(array($brisanjeID));
      if ( !$rezultat) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
           exit();
-     }
+	}}
 	
 }
 

@@ -56,53 +56,17 @@
 </ul>
 <br>
 
-
-
 <div style="clear:both"></div>
 <div class="header_underline"> </div>
 
 </header>
 <?php
 header('Content-type: text/html; charset=utf-8');
-
 ?>
-		 
 <div class="podloga" >
-<?php 
-	 session_start();
-if (isset($_SESSION['username']) ){
-
-		 $username = $_SESSION['username'];
-		
-		 ?>
-		 
-		 Logirani ste kao : <h3><?php echo $username?></h3><br>
-		 <a href ="logOut.php">logOut</a>
-		 <a href ="Admin.php">Admin panel </a>
-		 
-<?php 
-}
-else {?>
-<div class="lijevo" >
-<form   method="post" enctype="multipart/form-data" action="Admin.php" > 
- <label title="Unesite username" >Username: </label><br>                                                                  
-		<input type="text"  title="Username" id ="login1" name="login1" value="" ><br>
-		<label title="Unesite password" >Password: </label><br>                                                                  
-		<input type="password"  title="Sifra" id ="login2" name="login2"value=""   ><br>
-	<input class="my-stylish-button" type="submit" value="Login" id ="login"><br>
-	<a href="generisanjeSifre.php">Zaboravili ste svoju sifru?</a>
-
-</form>
-
-</div>
-
-<?php
-}
-?>
 	<div class="dodatna"><br><br>
 	<em>Ključ 20-godišnjeg uspjeha Jo-Jo optike je briga za klijenta, profesionalnost, individualni pristup, ljubaznost i raznolika ponuda te cijene pristupačne svakom klijentu.</em>
 	<br>
-<?php include 'novosti.php';?>
 	<div class="desniKontakt">
 						
 							
@@ -130,6 +94,103 @@ else {?>
 
 			
 </div>
+
+<?php
+
+    $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza->exec("set names utf8");
+     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
+     if (!$rezultat) {
+          $greska = $veza->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+	
+   ?>
+
+
+
+<div class="lijeviKontakt">
+
+<form   method="post" enctype="multipart/form-data" action="generisanjeSifre.php" > 
+		
+		<label title="unesite validan email" >E-mail *</label><br>
+		<input type="email"  title="unesite validan email" id ="email" name="email" >
+	<br>
+		&nbsp;&nbsp;<input class="my-stylish-button" type="submit" value="Generisi sifru" id ="dugme">
+			   
+</form>
+
+<?php
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	
+	
+$length=8;
+$chars="";
+$validnost=false;
+$email = $_POST["email"];
+foreach ($rezultat as $Korisnik) {
+	
+	if ($Korisnik["Email"]==$email){
+		$validnost=true;
+		 if($chars=="")
+		$chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789"; 
+    srand((double)microtime()*1000000); 
+    $i = 0; 
+    $pass = '' ; 
+ 
+    while ($i < $length) { 
+        $num = rand() % strlen($chars); 
+        $tmp = substr($chars, $num, 1); 
+        $pass = $pass . $tmp; 
+        $i++; 
+    } 
+
+		ini_set("SMTP","webmail.etf.unsa.ba");
+		ini_set("smtp_port","25");
+		ini_set('sendmail_from','ezugor1@etf.unsa.ba');
+    $to = $email;
+    $naslov = "Dibi optika najbolja optika";	
+	
+	$header = "From: ".$to."\r\n"."Reply-To: ".$naslov."\r\n"."Content-Type: text/html; charset=\"UTF-8\""."\r\n";
+    $poruka = "Vasa nova sifra je : ".$pass;
+
+    $dodatno =  "Reply-To: " . $email;
+    $poslanMail = mail($to, $naslov, $poruka, $dodatno);
+	
+	
+    $message = "Sifra vam je poslana na email";
+	
+	$rezultat = $veza->prepare("UPDATE Korisnik SET  Password = md5(?), Email = ? where Username =?");
+	$rezultat->execute(array($pass,$Korisnik["Email"],$Korisnik["Username"]));
+     if ( !$rezultat) {
+          $greska = $kom->errorInfo();
+          print "SQL greška: " . $greska[2];
+          exit();
+     }
+	
+
+    
+
+	}
+}
+
+if (!$validnost){$message = "Niste unijeli dobar mail";}
+
+echo "<script type='text/javascript'>alert('$message');</script>"; 
+
+
+}
+
+?>
+
+			
+
+</div>
+
+
 
 
 <p>

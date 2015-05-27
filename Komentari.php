@@ -97,7 +97,6 @@ header('Content-type: text/html; charset=utf-8');
 $name = $email =$comment= "";
  $nameErr= $emailErr="";
  
- 
 
  $validnost=false;
  $cek1=true;
@@ -106,7 +105,6 @@ $name = $email =$comment= "";
 
  $valid_pass=false;
 
- 
  
 	 function test_input($data) {
   $data = trim($data);
@@ -169,23 +167,16 @@ if ($cek1 && $cek2 ){
 }
 }?>
 
+<?php include("prikazi.php");?>
 
-
-<form   method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" > 
+<form   method="post" action="Komentari.php" > 
 		<label title="prvi znak mora biti slovo" >Ime *</label><br>                                                                  
-		<input type="text"  title="prvi znak mora biti slovo" id ="ime" name="name"  value="<?php echo $name;?>" style= 'backgroundColor:<?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni" ) echo "#FF8080"; else echo "80FF80"; ?>'  > <span class="error"><?php echo $nameErr;?>
-		<img alt='slika5'  class='NOTOK' id='slika1' style='visibility: <?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni" ||  $nameErr=="Validno ime") echo "visible"; else echo "hidden"; ?>'
-		src= <?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")echo "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";  else if( $nameErr=="Validno ime") echo "https://zamger.etf.unsa.ba/images/16x16/zad_ok.png"; ?>
-		class=<?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")echo "NOTOK";  else if( $nameErr=="Validno ime") echo "OK"; ?>
-		></span><br>
+		<input type="text"  title="prvi znak mora biti slovo" id ="ime" name="name"  value="" > <br>
 		
 		
 		<label title="unesite validan email" >E-mail *</label><br>
-		<input type="email"  title="unesite validan email" id ="email" name="email" value="<?php echo $email;?>" style= 'backgroundColor:<?php if($emailErr=="Morate unijeti email" || $emailErr=="Nije validan email formata" ) echo "#FF8080"; else echo "80FF80"; ?>'  > <span class="error"><?php echo $emailErr;?>
-		<img alt='slika6'  class='NOTOK' id='slika2' style='visibility: <?php if($emailErr=="Morate unijeti email" || $emailErr=="Nije validan email formata" ||  $emailErr=="Validan email") echo "visible"; else echo "hidden"; ?>'
-		src= <?php if($emailErr=="Morate unijeti email" || $emailErr=="Nije validan email formata")echo "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";  else if( $emailErr=="Validan email") echo "https://zamger.etf.unsa.ba/images/16x16/zad_ok.png"; ?>
-		class=<?php if($emailErr=="Morate unijeti email" || $emailErr=="Nije validan email formata")echo "NOTOK";  else if( $emailErr=="Validan email") echo "OK"; ?>
-		></span><br>
+		<input type="email"  title="unesite validan email" id ="email" name="email" value="" >
+		<br>
 
 		<label title="Morate unijeti validno ime">Poruka </label><br>
 		<textarea title="Morate unijeti validno ime" id ="poruka" value="<?php echo $comment;?>" name="comment" value="" ></textarea><br><br>
@@ -200,23 +191,7 @@ if ($cek1 && $cek2 ){
 
 </form>
 
-<?php
 
- foreach ($rez as $Koment) {
-    
-         echo '<div class="novost">'.
-            '<div class="naslov">'.
-                 '<div>'.
-                     '<div class="datum">'.
-                       
-                          date('d.m.Y. (h:i)', $Koment['vrijeme2']) .'<br>'.
-                      '</div>'.              
-            ' <div class="autor">'. $Koment["Autor"] .'</div>'.'<br>'.
-                  '</div>'.
-                 $Koment["Email"].'<br>'.
-            '</div>'.
-            '<div class="tekst">'. $Koment["Tekst"].'<br>'.'</div>'.'</div>';
-	 }		?>	
 
 
 

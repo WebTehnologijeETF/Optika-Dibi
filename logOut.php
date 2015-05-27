@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 	<html> 
 	<head>
@@ -65,51 +66,14 @@ header('Content-type: text/html; charset=utf-8');
 
 ?>
 
-	<div class="spesl">		
-					 <?php
-		
-        $autor = $_GET['autor'];
-        $detaljnije = $_GET['det'];
-        $datum = $_GET['datum'];
-        $slika = $_GET['slika'];
-        $naslov = $_GET['naslov'];
-        $tekst = $_GET['tekst'];
-		
-		   $slika = str_replace("'", "", $slika);
-        $slika = str_replace("<br/>", "", $slika);
-        $autor = str_replace("'", "", $autor);
-        $datum = str_replace("'", "", $datum);
-        $naslov = str_replace("'", "", $naslov);
-        $detaljnije = str_replace("'", "", $detaljnije);
-        $tekst = str_replace("'", "", $tekst);
-     echo '<div class="content-naslov">Novosti</div>';
-    
-         echo '<div class="novost">'.
-            '<div class="naslov">'.'<br>'.
-                 '<div>'.
-                     '<div class="datum">'.
-                       
-                          "$datum".
-                      '</div>'.              
-            ' <div class="autor">'.$autor.'</div>'.
-                  '</div>'.'<h3>'.
-                $naslov.'</h3>'.
-            '</div>'.
-            '<div class="tekst">'.
-                "<div ><img height='300' width='600' src='$slika'></img></div>"?>
-            <?php echo $tekst.'</div>'.'<div class="tekst">'.$detaljnije.'</div>'.
-            '<div class="border-bottom"></div>'.
-       '</div>';
-    ?>
+<?php 
+session_start();
+session_destroy();
 
-	<a href ="Naslovnica.php">natrag</a>
-
-			
-</div>
+echo "Odlogovali ste se";
+?><a href="Naslovnica.php">Natrag</a>
 
 
-
-<p>
 
 </div></div>
 

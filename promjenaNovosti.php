@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 	<html> 
 	<head>
@@ -67,11 +68,22 @@ header('Content-type: text/html; charset=utf-8');
 
 USPJEŠNO STE SE LOGOVALI KAO ADMINISTRATOR STRANICE
 
+
+<br>
+	<?php session_start();
+if (isset($_SESSION['username']) ){
+$validnost=true;
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+<?php }?>
+
 <br><br><br>
 Izaberite od ponudenog:
-<br>
-
-
 <ul id="sddm">
      <li><a 
         onmouseover="mopen('m3')" 
@@ -124,47 +136,60 @@ Izaberite od ponudenog:
 	<br><br><br>
 
 
-
-
-<form   method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" > 
-	
-	
 	 <table>
-	  <tr><th>ID:</th><th>Autor:</th><th>Naslov:</th><th>Datum objave:</th><th>Tekst:</th><th>Dugme</th> </title>
+	 
  <?php foreach ($rezultat as $Novosti) {?>	
-	<tr>
-	 <td><input type="text"  title="prvi znak mora biti slovo" id ="idNovosti" name="idNovosti"  value="<?php echo $Novosti["IDNovosti"];?>" disabled=true > 
-	 </td>
-	 <td>	<input type="text"   id ="autorNovosti" name="autorNovosti"  value="<?php echo $Novosti["Autor"];?>"  >
-	 </td>
+
+	<tr> 
+	 <td><form   method="post"  action="promjenaNovosti.php" > 
+	 <table> <tr><th>ID:</th><th>Autor:</th><th>Naslov:</th><th>Datum objave:</th><th>Tekst:</th>
 	 
-	 <td><input type="text"   id ="naslovNovosti" name="naslovNovosti"  value="<?php echo $Novosti["Naslov"];?>"  >
-	 </td>
-	 <td><input type="text"  id ="datumObjaveNovosti" name="datumObjaveNovosti"  value="<?php echo date('d.m.Y. (h:i)', $Novosti['vrijeme2']);?>" disabled=true >
-	 </td>
-	 <td><input type="text"   id ="tekstNovosti" name="tekstNovosti"  value="<?php echo $Novosti["Tekst"];?>"  >
+	 <th>Detaljnije:</th><th>Slika:</th>
+	 
+	 <th>Dugme</th> <tr><td><input type="text"  title="prvi znak mora biti slovo"  name="idNovosti"  value="<?php echo $Novosti["IDNovosti"];?>" disabled=true > </td>
+	 &nbsp;&nbsp;<td><input type="text"   name="autorNovosti"  value="<?php echo $Novosti["Autor"];?>"  ></td>
+	 
+	 
+	&nbsp;&nbsp; <td><input type="text"  name="naslovNovosti"  value="<?php echo $Novosti["Naslov"];?>"  ></td>
+	 
+	&nbsp;&nbsp; <td><input type="text"   name="datumObjaveNovosti"  value="<?php echo date('d.m.Y. (h:i)', $Novosti['vrijeme2']);?>" disabled=true >
+	 </td><td>
+	 &nbsp;&nbsp;<input type="text"    name="tekstNovosti"  value="<?php echo $Novosti["Tekst"];?>"  ></td>
+	<td><input type="text"   id ="detaljnije" name="detaljnije"  value="<?php echo $Novosti["Detaljnije"];?>"  >
 	</td>
-	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit" name="Promjeni" onclick="value='<?php echo  $Novosti["IDNovosti"];?>'"></td>
-	 </tr>
-	 
-	 
+	<td><input type="text"   id ="slika" name="slika"  value="<?php echo $Novosti["Slika"];?>"  >
+	</td>
+		&nbsp;&nbsp;
+	<td><input class="my-stylish-button"  name="promijena" onclick="value='<?php echo  $Novosti["IDNovosti"];?>'" type="submit">
+	
+	
+	</td>
+	
+	
+	
+	
+	</tr></table></form>	</td>
+	</tr>		
+ 	 
 	 <?php }?>
-	 
+
 	 </table>
-		
+	
 	<br><br>		 
-</form>
+
 
 	 <?php
 	 
-	 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$id=$_POST["promijena"];
 	  $name=$_POST["autorNovosti"];
 	  $naslov=$_POST["naslovNovosti"];
 	  $tekst=$_POST["tekstNovosti"];
-	  $id=$_POST["Promjeni"];
-	  	$rezultat= $veza-> query( "UPDATE Novosti SET Autor = '$name', Naslov ='$naslov',Tekst='$tekst' WHERE IDNovosti='$id'"); 
-	     if (!$rezultat) {
+	 $detaljnije=$_POST["detaljnije"];
+	  $slika=$_POST["slika"];
+	  	$rezultat= $veza-> prepare( "UPDATE Novosti SET Autor = ?, Naslov =?,Tekst=?, Detaljnije=?, Slika=? WHERE IDNovosti=?"); 
+		$rezultat->execute(array($name,$naslov,$tekst,$detaljnije,$slika,$id));
+		if (!$rezultat) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
           exit();
