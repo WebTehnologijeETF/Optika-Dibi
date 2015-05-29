@@ -121,9 +121,9 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->prepare("set names utf8");
-     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
+     $rezultat = $veza->query("select Username, Password, Email from korisnik ");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $pass=$_POST["Password"];
 	  $mail=$_POST["Email"];
     $brisanjeID=$_POST["promjena"];
-	$rezultat = $veza->prepare("UPDATE Korisnik SET  Password = ?, Email = md5(?) where Username =?");
+	$rezultat = $veza->prepare("UPDATE korisnik SET  Password = md5(?), Email = ? where Username =?");
 	$rezultat->execute(array($pass,$mail,$brisanjeID));
      if ( !$rezultat) {
           $greska = $kom->errorInfo();
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	 <input type="text"   id ="Username" name="Username"  value="<?php echo $Korisnik["Username"];?>" disabled=true >
 	 </td>
 	 <td>
-	&nbsp;&nbsp; <input type="text"   id ="Password" name="Password"  value="<?php echo $Korisnik["Password"];?>">
+	&nbsp;&nbsp; <input type="text"   id ="Password" name="Password"  value="">
 	</td>
 	<td>
 	&nbsp;&nbsp; <input type="email"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>"  ></td>

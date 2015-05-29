@@ -123,9 +123,9 @@ Izaberite od ponudenog:
 
 	 
 	 
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 	 $kom =  new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -142,7 +142,7 @@ Izaberite od ponudenog:
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $brisanjeID=$_POST["obrisi"];
-	$rezultat = $kom->prepare("delete from Komentar where IDKomentar =?");
+	$rezultat = $kom->prepare("delete from komentar where IDKomentar =?");
 	$rezultat->execute(array($brisanjeID));
      if (!$rezultat) {
           $greska = $kom->errorInfo();

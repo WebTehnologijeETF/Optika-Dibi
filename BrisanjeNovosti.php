@@ -122,9 +122,9 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -133,9 +133,9 @@ Izaberite od ponudenog:
 
 	 
 	 
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -184,9 +184,9 @@ Izaberite od ponudenog:
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
     $brisanjeID=$_POST["obrisi"];
-	$rezultat = $veza->prepare("delete from Komentar where Novosti =?");
+	$rezultat = $veza->prepare("delete from komentar where Novosti =?");
 	$rezultat->execute(array($brisanjeID));
-	$rez = $kom->prepare("delete from Novosti where IDNovosti =?");
+	$rez = $kom->prepare("delete from novosti where IDNovosti =?");
 	$rez->execute(array($brisanjeID));
      if (!$rez || !$rezultat) {
           $greska = $kom->errorInfo();

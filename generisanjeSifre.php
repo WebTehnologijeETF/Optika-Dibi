@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 	<html> 
 	<head>
-
+  <?php require "Mail.php";?>
 		
 		<meta charset="utf-8">
 		
@@ -97,9 +97,9 @@ header('Content-type: text/html; charset=utf-8');
 
 <?php
 
-    $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+    $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
+     $rezultat = $veza->query("select Username, Password, Email from korisnik ");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -148,22 +148,36 @@ foreach ($rezultat as $Korisnik) {
         $i++; 
     } 
 
-		ini_set("SMTP","webmail.etf.unsa.ba");
-		ini_set("smtp_port","25");
-		ini_set('sendmail_from','ezugor1@etf.unsa.ba');
-    $to = $email;
-    $naslov = "Dibi optika najbolja optika";	
+		ini_set("display_errors", 1);
+	$kome=$email;
+	$data="Vasa nova sifra je :".$pass;
+	$from = "ezugor1@etf.unsa.ba"	;
+	$naslov= "dibi optika";
+	 echo "<h1>Kome: $email</h1>";
+    $mail = Mail::factory("smtp", 
+        array(
+            "host"     => "ssl://webmail.etf.unsa.ba",
+            "username" => "ezugor1@etf.unsa.ba",
+            "password" => "",
+            "auth"     => true,
+            "port"     => 465
+			
+			
+        )
+    );
+    $headers = array("From" => $from, "Subject" => $naslov, "Content-Type"  => 'text/plain; charset=UTF-8');
+    $body = $data;
+    $mail->send($kome, $headers, $body);
 	
-	$header = "From: ".$to."\r\n"."Reply-To: ".$naslov."\r\n"."Content-Type: text/html; charset=\"UTF-8\""."\r\n";
-    $poruka = "Vasa nova sifra je : ".$pass;
-
-    $dodatno =  "Reply-To: " . $email;
-    $poslanMail = mail($to, $naslov, $poruka, $dodatno);
+    if (PEAR::isError($mail)) {
+        echo "<h1>NE VALJA</h1>";
+    }
+	else echo "<h1>Poslano uspješno...</h1>";
 	
 	
     $message = "Sifra vam je poslana na email";
 	
-	$rezultat = $veza->prepare("UPDATE Korisnik SET  Password = md5(?), Email = ? where Username =?");
+	$rezultat = $veza->prepare("UPDATE korisnik SET  Password = md5(?), Email = ? where Username =?");
 	$rezultat->execute(array($pass,$Korisnik["Email"],$Korisnik["Username"]));
      if ( !$rezultat) {
           $greska = $kom->errorInfo();

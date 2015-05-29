@@ -8,7 +8,7 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
      $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
@@ -23,7 +23,7 @@ header('Content-type: text/html; charset=utf-8');
 
   foreach ($rezultat as $Novosti) {
 	  
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
      $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar ");
      if (!$rez) {

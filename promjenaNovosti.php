@@ -122,9 +122,9 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -187,7 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $tekst=$_POST["tekstNovosti"];
 	 $detaljnije=$_POST["detaljnije"];
 	  $slika=$_POST["slika"];
-	  	$rezultat= $veza-> prepare( "UPDATE Novosti SET Autor = ?, Naslov =?,Tekst=?, Detaljnije=?, Slika=? WHERE IDNovosti=?"); 
+	  #izmjena, komentar :D
+	  	$rezultat= $veza-> prepare( "UPDATE novosti SET Autor = ?, Naslov =?,Tekst=?, Detaljnije=?, Slika=? WHERE IDNovosti=?"); 
 		$rezultat->execute(array($name,$naslov,$tekst,$detaljnije,$slika,$id));
 		if (!$rezultat) {
           $greska = $kom->errorInfo();

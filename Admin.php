@@ -65,9 +65,9 @@
 header('Content-type: text/html; charset=utf-8');
 
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -76,9 +76,9 @@ header('Content-type: text/html; charset=utf-8');
 
 	 
 	 
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 	 $kom =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -119,9 +119,9 @@ else {
 	 else if (isset($_REQUEST['login1'])) {
 
 		$username = $_REQUEST['login1'];
-  $v = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+  $v =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $v->exec("set names utf8");
-     $r = $v->query("select Username, Password, Email from Korisnik ");
+     $r = $v->query("select Username, Password, Email from korisnik ");
 	
      if (!$r) {
           $greska = $v->errorInfo();
@@ -133,7 +133,7 @@ else {
 	  $pass=$_POST["login2"];
 	
 	 foreach ($r as $Kor){
-		 if ($name==$Kor['Username'] && $pass==$Kor['Password']){
+		 if ($name==$Kor['Username'] && md5($pass)==$Kor['Password']){
 		 $validnost=true;
 		 print $name." ".$pass;
 		 $_SESSION['username'] = $username;}

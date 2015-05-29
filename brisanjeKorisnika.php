@@ -121,9 +121,9 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+     $veza =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select Username, Password, Email from Korisnik ");
+     $rezultat = $veza->query("select Username, Password, Email from korisnik ");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -136,7 +136,7 @@ Izaberite od ponudenog:
 	<?php $brojac=0;?>
 	
 	 <table>
-	 <tr><th>Username:</th><th>Password:</th><th>Email:</th><th>Dugme</th> </tr>
+	 <tr><th>Username:</th><th>Email:</th><th>Dugme</th> </tr>
  <?php foreach ($rezultat as $Korisnik) {
 	 $brojac++;
 	 ?>	
@@ -145,8 +145,7 @@ Izaberite od ponudenog:
 	 <td>	<input type="text"   id ="Username" name="Username"  value="<?php echo $Korisnik["Username"];?>" disabled=true >
 	 </td>
 	 
-	 <td><input type="text"   id ="Password" name="Password"  value="<?php echo $Korisnik["Password"];?>" disabled=true >
-	 </td>
+	
 	 <td><input type="text"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>" disabled=true >
 	 </td>
 	 	<td>	&nbsp;&nbsp;<input class="my-stylish-button" type="submit"name="obrisi" id ="ObrisiDugme" onclick="value='<?php echo  $Korisnik["Username"];?>'"></td>
@@ -169,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $brisanjeID=$_POST["obrisi"];
 	if ($brojac==1){echo "greska ";}
 	else {
-	$rezultat = $veza->prepare("delete from Korisnik where Username =?");
+	$rezultat = $veza->prepare("delete from korisnik where Username =?");
 	$rezultat->execute(array($brisanjeID));
      if ( !$rezultat) {
           $greska = $kom->errorInfo();

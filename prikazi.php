@@ -1,6 +1,6 @@
-	 <?php	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 <?php	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar where Novosti='$ID' order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar where Novosti='$ID' order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];

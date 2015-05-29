@@ -70,9 +70,9 @@ header('Content-type: text/html; charset=utf-8');
         $ID = $_POST['ID'];
         $ID = str_replace("'", "", $ID);
 	 
-	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar where Novosti='$ID' order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar where Novosti='$ID' order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -155,7 +155,7 @@ if ($cek1 && $cek2 ){
 	$validnost=true; 
 //	   $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar where Novosti='$ID' order by Novosti asc");
 	
-	$rezultat= $kom-> query( "INSERT INTO Komentar (Autor, Email , Tekst,Novosti)
+	$rezultat= $kom-> query( "INSERT INTO komentar (Autor, Email , Tekst,Novosti)
     VALUES ('$name', '$email', '$comment','$ID')"
 	);
 	     if (!$rezultat) {
@@ -167,15 +167,26 @@ if ($cek1 && $cek2 ){
 }
 }?>
 
+
+
+
+
+
 <?php include("prikazi.php");?>
 
 <form   method="post" action="Komentari.php" > 
-		<label title="prvi znak mora biti slovo" >Ime *</label><br>                                                                  
-		<input type="text"  title="prvi znak mora biti slovo" id ="ime" name="name"  value="" > <br>
+		<label title="prvi znak mora biti slovo" >Ime *</label><br>  
+		<input type="text"  title="prvi znak mora biti slovo" id ="ime" name="name"  value="" > 
+		<span class="error"><?php echo $nameErr;?>
+		<img alt='slika5'  class='NOTOK' id='slika1' style='visibility: <?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni" ||  $nameErr=="Validno ime") echo "visible"; else echo "hidden"; ?>'
+		src= <?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")echo "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";  else if( $nameErr=="Validno ime") echo "https://zamger.etf.unsa.ba/images/16x16/zad_ok.png"; ?>
+		class=<?php if($nameErr=="Morate unijeti ime" || $nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")echo "NOTOK";  else if( $nameErr=="Validno ime") echo "OK"; ?>
+		></span>
+		<br>
 		
 		
 		<label title="unesite validan email" >E-mail *</label><br>
-		<input type="email"  title="unesite validan email" id ="email" name="email" value="" >
+		<input type="email"  title="unesite validan email" id ="email" name="email" value="" > 
 		<br>
 
 		<label title="Morate unijeti validno ime">Poruka </label><br>
