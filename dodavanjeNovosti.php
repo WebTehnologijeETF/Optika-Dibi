@@ -124,7 +124,7 @@ Izaberite od ponudenog:
 
 
 
-     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
      $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
@@ -135,7 +135,7 @@ Izaberite od ponudenog:
 
 	 
 	 
-	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
      $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
      if (!$rez) {
@@ -211,7 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $tekst=$_POST["tekstNovosti2"];
 	  $detaljnije=$_POST["detaljnije2"];
 	  $slika=$_POST["slika2"];
-	  	$rezultat= $veza-> prepare( "INSERT INTO novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
+	  	$rezultat= $veza-> prepare( "INSERT INTO Novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
     VALUES (?,?,?,?,?)"
 	);
 	$rezultat->execute(array($name,$naslov,$tekst,$detaljnije,$slika));

@@ -58,7 +58,37 @@
 
 
 <div class="podloga" >
+<?php 
+	 session_start();
+if (isset($_SESSION['username']) ){
 
+		 $username = $_SESSION['username'];
+		
+		 ?>
+		 
+		 Logirani ste kao : <h3><?php echo $username?></h3><br>
+		 <a href ="logOut.php">logOut</a>
+		 <a href ="Admin.php">Admin panel </a>
+		 
+<?php 
+}
+else {?>
+<div class="lijevo" >
+<form   method="post" enctype="multipart/form-data" action="Admin.php" > 
+ <label title="Unesite username" >Username: </label><br>                                                                  
+		<input type="text"  title="Username" id ="login1" name="login1" value="" ><br>
+		<label title="Unesite password" >Password: </label><br>                                                                  
+		<input type="password"  title="Sifra" id ="login2" name="login2"value=""   ><br>
+	<input class="my-stylish-button" type="submit" value="Login" id ="login"><br>
+	<a href="generisanjeSifre.php">Zaboravili ste svoju sifru?</a>
+
+</form>
+
+</div>
+
+<?php
+}
+?>
 
 <div class="lijeviKontakt">
 <h2><a href="Naslovnica.html">DIBI OPTIKA Hotonj</a></h2><br><br>

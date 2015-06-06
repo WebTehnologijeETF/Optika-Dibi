@@ -120,9 +120,11 @@ Izaberite od ponudenog:
 </ul>
 <?php
 
-    $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+    $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->query("set names utf8");
+
      $rezultat = $veza->query("select Username, Password, Email from korisnik ");
+
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -147,7 +149,7 @@ Izaberite od ponudenog:
 	 <td>	<input type="text"   id ="us" name="us"  value="<?php echo $Korisnik["Username"];?>" disabled=true >
 	 </td>
 	 
-	 <td><input type="text"   id ="Password" name="Password"  value="" disabled=true >
+	 <td><input type="text"   id ="Password" name="Password"  value="<?php echo $Korisnik["Password"];?>" disabled=true >
 	 </td>
 	 <td><input type="email"   id ="Email" name="Email"  value="<?php echo $Korisnik["Email"];?>" disabled=true >
 	 </td>
@@ -182,6 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $pass=$_POST["Password2"];
 	  $email=$_POST["Email2"];
 	  	$rezultat= $veza-> prepare( "INSERT INTO korisnik (Username, Password , Email)
+
     VALUES (?,md5(?),?)"
 	);
 	$rezultat->execute(array($name,$pass,$email));

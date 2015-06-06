@@ -121,9 +121,11 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->prepare("set names utf8");
+
      $rezultat = $veza->query("select Username, Password, Email from korisnik ");
+
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -141,7 +143,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $pass=$_POST["Password"];
 	  $mail=$_POST["Email"];
     $brisanjeID=$_POST["promjena"];
+
 	$rezultat = $veza->prepare("UPDATE korisnik SET  Password = md5(?), Email = ? where Username =?");
+
 	$rezultat->execute(array($pass,$mail,$brisanjeID));
      if ( !$rezultat) {
           $greska = $kom->errorInfo();

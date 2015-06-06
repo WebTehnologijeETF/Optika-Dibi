@@ -122,9 +122,11 @@ Izaberite od ponudenog:
 <?php
 
 
-     $veza =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
+
      $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
+
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -133,9 +135,11 @@ Izaberite od ponudenog:
 
 	 
 	 
-	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
+
      $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
+
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -187,6 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$rezultat = $veza->prepare("delete from komentar where Novosti =?");
 	$rezultat->execute(array($brisanjeID));
 	$rez = $kom->prepare("delete from novosti where IDNovosti =?");
+
 	$rez->execute(array($brisanjeID));
      if (!$rez || !$rezultat) {
           $greska = $kom->errorInfo();

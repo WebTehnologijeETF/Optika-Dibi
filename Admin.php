@@ -65,9 +65,9 @@
 header('Content-type: text/html; charset=utf-8');
 
 
-     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
-     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
+     $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from Novosti order by Datum desc");
      if (!$rezultat) {
           $greska = $veza->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -76,9 +76,9 @@ header('Content-type: text/html; charset=utf-8');
 
 	 
 	 
-	 	 $kom =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
-     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar order by Novosti asc");
+     $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar order by Novosti asc");
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -119,9 +119,11 @@ else {
 	 else if (isset($_REQUEST['login1'])) {
 
 		$username = $_REQUEST['login1'];
-  $v =new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+  $v = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $v->exec("set names utf8");
+
      $r = $v->query("select Username, Password, Email from korisnik ");
+
 	
      if (!$r) {
           $greska = $v->errorInfo();
@@ -133,7 +135,7 @@ else {
 	  $pass=$_POST["login2"];
 	
 	 foreach ($r as $Kor){
-		 if ($name==$Kor['Username'] && md5($pass)==$Kor['Password']){
+		 if ($name==$Kor['Username'] && $pass==$Kor['Password']){
 		 $validnost=true;
 		 print $name." ".$pass;
 		 $_SESSION['username'] = $username;}
@@ -163,22 +165,22 @@ Izaberite od ponudenog:
      <li><a 
         onmouseover="mopen('m3')" 
         onmouseout="mclosetime()"
-		onclick="Load('dodavanjeNovosti.php');">Novosti</a>
+		onclick="dodajNovost(3);return false;">Novosti</a>
         <div id="m3" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('promjenaNovosti.php');">Promjena</a>
-        <a  onclick="Load('BrisanjeNovosti.php');">Brisanje</a>
-        <a  onclick="Load('dodavanjeNovosti.php');">Dodavanje</a>
+        <a  onclick="dodajNovost(1);return false;;">Promjena</a>
+        <a  onclick="dodajNovost(2);return false;">Brisanje</a>
+        <a  onclick="dodajNovost(3);return false;">Dodavanje</a>
         </div>
     </li>
-    <li><a onclick="Load('brisanjeKomentara.php');"
+    <li><a onclick="prikaziSve(); return false;" 
 	 onmouseover="mopen('m4')" 
         onmouseout="mclosetime()">Komentari</a>
 	       <div id="m4" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('brisanjeKomentara.php');">Brisanje</a>
+        <a  onclick="prikaziSve(); return false;">Brisanje</a>
         </div>
 	</li>
 	<li><a onclick="Load('dodavanjeKorisnika.php');"
@@ -194,7 +196,7 @@ Izaberite od ponudenog:
 	</li>
    
 </ul>
-	  
+	  <div id="prikaz"></div>
 	<?php  
 	  
   }

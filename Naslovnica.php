@@ -134,10 +134,15 @@ else {?>
 
 <p>
 
-</div></div>
+</div>
+
+
+
+</div>
 
 <footer id="Copy">
     Copyright &copy; Ediba Žugor 2015.
 </footer>
 
 </body>
+</html>

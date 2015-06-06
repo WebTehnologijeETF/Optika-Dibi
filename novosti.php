@@ -8,7 +8,7 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
 
-     $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $veza->exec("set names utf8");
      $rezultat = $veza->query("select IDNovosti, Naslov, Tekst, UNIX_TIMESTAMP(Datum) vrijeme2, Autor, Detaljnije, Slika from novosti order by Datum desc");
      if (!$rezultat) {
@@ -18,12 +18,9 @@ header('Content-type: text/html; charset=utf-8');
      }
 
 	 
-	 
-	 
-
   foreach ($rezultat as $Novosti) {
 	  
-	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
      $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar ");
      if (!$rez) {
@@ -65,29 +62,31 @@ header('Content-type: text/html; charset=utf-8');
 	
 	 <input type="hidden" name="stil" value='<?php echo $Novosti['Slika']; ?>'>
                  <?php if($Novosti['Detaljnije']!=NULL):
-                    $detaljnije = "'" .str_replace( PHP_EOL, '<br/>', $Novosti['Detaljnije'] )."'";
+                 /*   $detaljnije = "'" .str_replace( PHP_EOL, '<br/>', $Novosti['Detaljnije'] )."'";
                     $datum = "'" .str_replace( PHP_EOL, '<br/>', date('d.m.Y. (h:i)', $Novosti['vrijeme2']) )."'";
                     $naslov ="'" . str_replace( PHP_EOL, '<br/>',  $Novosti['Naslov'] )."'";
                     $slika = "'" .str_replace( PHP_EOL, '<br/>', $Novosti['Slika'] )."'";
                     $tekst = "'" .str_replace( PHP_EOL, '<br/>',  $Novosti['Tekst'] )."'";
-                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["Autor"] )."'";
+                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["Autor"] )."'";*/
 					$ID = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["IDNovosti"] )."'";?>
-					 <?php echo '<input class="detaljnije" value="Detaljnije" onclick="novosti('.$datum.','.$autor.','.$naslov.','.$slika.','.$tekst.','.$detaljnije.'); return false;" type="button">'; 
+					 <?php echo '<input class="detaljnije" value="Detaljnije" onclick="novosti('.$ID.'); return false;" type="button">'; 
             endif;
 		
 
  ?> <input type="hidden" name="kk" value='<?php echo $Koment['Novosti']; ?>'>
                  
-                <?php    $email = "'" .str_replace( PHP_EOL, '<br/>', $Koment['Email'] )."'";
+                <?php  /*  $email = "'" .str_replace( PHP_EOL, '<br/>', $Koment['Email'] )."'";
                     $datum = "'" .str_replace( PHP_EOL, '<br/>', date('d.m.Y. (h:i)', $Koment['vrijeme2']) )."'";
                   
                     $tekst = "'" .str_replace( PHP_EOL, '<br/>',  $Koment['Tekst'] )."'";
-                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $Koment["Autor"] )."'";
+                    $autor = "'" .str_replace( PHP_EOL, '<br/>', $Koment["Autor"] )."'";*/
 					$ID = "'" .str_replace( PHP_EOL, '<br/>', $Novosti["IDNovosti"] )."'";
                 ?>
 				
 
 	      <?php echo ' <input class="komentari" value="'.$brojac.'Komentara" onclick="komentari('.$ID.'); return false;" type="button">';?>
+		  
+		  <div id="komentari"></div>
     <br><br>
 	<?php
 	 }

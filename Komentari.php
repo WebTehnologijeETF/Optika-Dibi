@@ -70,9 +70,12 @@ header('Content-type: text/html; charset=utf-8');
         $ID = $_POST['ID'];
         $ID = str_replace("'", "", $ID);
 	 
-	 	 $kom = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+	 	 $kom = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
      $kom->exec("set names utf8");
+
      $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from komentar where Novosti='$ID' order by Novosti asc");
+   
+
      if (!$rez) {
           $greska = $kom->errorInfo();
           print "SQL greška: " . $greska[2];
@@ -155,7 +158,7 @@ if ($cek1 && $cek2 ){
 	$validnost=true; 
 //	   $rez = $kom->query("select IDKomentar, Autor, UNIX_TIMESTAMP(Datum_Vrijeme) vrijeme2, Email, Tekst, Novosti from Komentar where Novosti='$ID' order by Novosti asc");
 	
-	$rezultat= $kom-> query( "INSERT INTO komentar (Autor, Email , Tekst,Novosti)
+	$rezultat= $kom-> query( "INSERT INTO Komentar (Autor, Email , Tekst,Novosti)
     VALUES ('$name', '$email', '$comment','$ID')"
 	);
 	     if (!$rezultat) {
@@ -166,7 +169,6 @@ if ($cek1 && $cek2 ){
 	 
 }
 }?>
-
 
 
 
@@ -187,6 +189,8 @@ if ($cek1 && $cek2 ){
 		
 		<label title="unesite validan email" >E-mail *</label><br>
 		<input type="email"  title="unesite validan email" id ="email" name="email" value="" > 
+
+
 		<br>
 
 		<label title="Morate unijeti validno ime">Poruka </label><br>

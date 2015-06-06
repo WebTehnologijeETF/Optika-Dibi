@@ -68,7 +68,9 @@ header('Content-type: text/html; charset=utf-8');
 
 <?php 
 session_start();
-session_destroy();
+  session_unset();
+  session_destroy();
+    session_unregister();
 
 echo "Odlogovali ste se";
 ?><a href="Naslovnica.php">Natrag</a>
