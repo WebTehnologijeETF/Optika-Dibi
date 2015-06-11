@@ -8,9 +8,9 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="meniSkripta.js"></script>
-		<script src="jsFile.js"></script>
-<script src="ucitavanje.js"></script>
+	<script src="jsFiles/meniSkripta.js"></script>
+		<script src="jsFiles/jsFile.js"></script>
+<script src="jsFiles/ucitavanje.js"></script>
 
 	</head>
 	
@@ -18,7 +18,7 @@
 
 
 <header class="izbornik">
-<img src="logo.jpg" alt="sk">
+<img src="pictures/logo.jpg" alt="sk">
 
 
 
@@ -36,22 +36,22 @@
 		<a onclick="Load('Naslovnica.php');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
-    <li><a onclick="Load('Katalog.html');"
+    <li><a  onclick="Load('ONama.php');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.php');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
-        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
-        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
-        <a  onclick="Load('Katalog.html');"> >Accessories </a>
+        <a  onclick="Load('Katalog.php');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.php');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.php');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.php');"> >Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Usluge.php');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php'); ">Kontakt</a></li>
 </ul>
 <br>
@@ -97,7 +97,7 @@ header('Content-type: text/html; charset=utf-8');
 
 <?php
 
-    $veza = new PDO("mysql:dbname=dibioptics;host=localhost;charset=utf8", "ezugor", "password");
+      $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
      $veza->exec("set names utf8");
 
      $rezultat = $veza->query("select Username, Password, Email from korisnik ");
@@ -141,54 +141,17 @@ foreach ($rezultat as $Korisnik) {
 	if ($Korisnik["Email"]==$email){
 		$validnost=true;
 		$uname=$Korisnik["Username"];
-		 if($chars=="")
-		$chars = "abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789"; 
-    srand((double)microtime()*1000000); 
-    $i = 0; 
-    $pass = '' ; 
- 
-    while ($i < $length) { 
-        $num = rand() % strlen($chars); 
-        $tmp = substr($chars, $num, 1); 
-        $pass = $pass . $tmp; 
-        $i++; 
-    } 
-	
-	
-	/* global $mySQL;
-    if ($SQL = $mySQL->prepare("SELECT `Username`,`Email`,`Password` FROM `users_enc` WHERE `ID` = ? LIMIT 1"))
-    {
-        $SQL->bind_param('i',$userID);
-        $SQL->execute();
-        $SQL->store_result();
-        $SQL->bind_result($uname,$email,$pword);
-        $SQL->fetch();
-        $SQL->close();*/
-        $expFormat = mktime(date("H"), date("i"), date("s"), date("m")  , date("d")+1, date("Y"));
-        $expDate = date("Y-m-d H:i:s",$expFormat);
-      /*  $key = md5($uname . '_' . $email . rand(0,10000) .$expDate . PW_SALT);
-        if ($SQL = $mySQL->prepare("INSERT INTO `recoveryemails_enc` (`UserID`,`Key`,`expDate`) VALUES (?,?,?)"))
-        {
-            $SQL->bind_param('iss',$userID,$key,$expDate);
-            $SQL->execute();
-            $SQL->close();*/
-          //  $passwordLink = "<a href=\"?a=recover&email=" . $pass . "&u=" . urlencode(base64_encode($uname)) . "\">http://www.oursite.com/forgotPass.php?a=recover&email=" . $pass . "&u=" . urlencode(base64_encode($userID)) . "</a>";
-            
-			$passwordLink= "<a href ='Naslovnica.php'>"."Naslovnica.php"."</a>";
+		$date=time();
 			$message = "Postovani $uname,\r\n";
             $message .= "Molim Vas kliknite na naredni link kako bi ste resetovali password:\r\n";
             $message .= "-----------------------\r\n";
-            $message .= "$passwordLink\r\n";
-            $message .= "-----------------------\r\n";
+            $message .= " <a href= 'http://optikadibi-dibi.rhcloud.com/novaSifra.php?Name=".$uname."&Vrijeme=".$date."' > link za promjenu sifre</a>";
+            $message .= "\r\n";
             $message .= "Molim Vas uvjerite se da ste kopirali citav link u Vas pretrazivac. Link istice nakon 24 sata iz sigurnosnih razloga.\r\n\r\n";
             $message .= "U slucaju da niste zahtjevali promjenu Vaseg passworda molimo Vas ignorisite ovu poruku.\r\n\r\n";
             $message .= "Hvala,\r\n";
             $message .= "-- Dibi optika tim";
           
-	
-	
-	
-	
 	ini_set("display_errors", 1);
 	$kome=$email;
 	
@@ -198,7 +161,7 @@ foreach ($rezultat as $Korisnik) {
         array(
             "host"     => "ssl://webmail.etf.unsa.ba",
             "username" => "ezugor1@etf.unsa.ba",
-            "password" => "nepricaj456",
+            "password" => "",
             "auth"     => true,
             "port"     => 465
         )
@@ -212,36 +175,6 @@ foreach ($rezultat as $Korisnik) {
     }
 	else echo "<h1>Poslano uspješno...</h1>";
 	
-
-
-	
-	
-/*
-		ini_set("SMTP","webmail.etf.unsa.ba");
-		ini_set("smtp_port","25");
-		ini_set('sendmail_from','ezugor1@etf.unsa.ba');
-    $to = $email;
-    $naslov = "Dibi optika najbolja optika";	
-	
-	$header = "From: ".$to."\r\n"."Reply-To: ".$naslov."\r\n"."Content-Type: text/html; charset=\"UTF-8\""."\r\n";
-    $poruka = "Vasa nova sifra je : ".$pass;
-
-    $dodatno =  "Reply-To: " . $email;
-    $poslanMail = mail($to, $naslov, $poruka, $dodatno);
-	
-	*/
-    $message = "Sifra vam je poslana na email";
-	
-	$rezultat = $veza->prepare("UPDATE Korisnik SET  Password = md5(?), Email = ? where Username =?");
-	$rezultat->execute(array($pass,$Korisnik["Email"],$Korisnik["Username"]));
-     if ( !$rezultat) {
-          $greska = $kom->errorInfo();
-          print "SQL greška: " . $greska[2];
-          exit();
-     }
-	
-
-    
 
 	}
 }

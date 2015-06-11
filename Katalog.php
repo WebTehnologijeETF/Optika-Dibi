@@ -8,14 +8,14 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="meniSkripta.js"></script>
-<script src="ucitavanje.js"></script>
+	<script src="jsFiles/meniSkripta.js"></script>
+<script src="jsFiles/ucitavanje.js"></script>
 
 	</head>
 	
 <body id ="main" >
 <header class="izbornik">
-<img src="logo.jpg" alt="slikaca">
+<img src="pictures/logo.jpg" alt="slikaca">
 <ul id="sddm">
   <li><a 
         onmouseover="mopen('m1')" 
@@ -30,22 +30,22 @@
 		<a onclick="Load('Naslovnica.php');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
-    <li><a onclick="Load('Katalog.html');"
+    <li><a  onclick="Load('ONama.php');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.php');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
-        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
-        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
-        <a  onclick="Load('Katalog.html');">Accessories </a>
+        <a  onclick="Load('Katalog.php');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.php');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.php');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.php');">Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Usluge.php');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php');">Kontakt</a></li>
 </ul>
 <div style="clear:both"></div>
@@ -54,19 +54,18 @@
 
  
 <div class="podloga" >
-
-	
+<?php include 'login.php';?>
 
 <div class="lijeviKontakt">
 <div class="scroll2">
 <h1>Najnovija kolekcija</h1>
 	<article >										
-<a href="naocale1.jpg" title="RAY BAN 5121 2000">
+<a href="pictures/naocale1.jpg" title="RAY BAN 5121 2000">
 										
-<img src="naocale1.jpg" alt="RAY BAN 5121 2000" title="RAY BAN 5121 2000"  />
+<img src="pictures/naocale1.jpg" alt="RAY BAN 5121 2000" title="RAY BAN 5121 2000"  />
 </a>
 
-												<h2><a href="naocale1.jpg" title="RAY BAN 5121 2000">RAY BAN 5121 2000</a></h2>
+												<h2><a href="pictures/naocale1.jpg" title="RAY BAN 5121 2000">RAY BAN 5121 2000</a></h2>
 												
 
 			<h3>Cijena: 210.00 KM</h3>
@@ -79,14 +78,14 @@
 										
 
 		
-<a href="naocale2.jpg" title="RAY BAN 8677 1073">
+<a href="pictures/naocale2.jpg" title="RAY BAN 8677 1073">
 										
 
 
-<img src="naocale2.jpg" alt="RAY BAN 8677 1073" title="RAY BAN 8677 1073"  />
+<img src="pictures/naocale2.jpg" alt="RAY BAN 8677 1073" title="RAY BAN 8677 1073"  />
 </a>
 
-												<h2><a href="naocale2.jpg" title="RAY BAN 8677 1073">RAY BAN 8677 1073</a></h2>
+												<h2><a href="pictures/naocale2.jpg" title="RAY BAN 8677 1073">RAY BAN 8677 1073</a></h2>
 												
 
 												<div ><h3>Cijena: 230.00 KM</h3></div>
@@ -96,14 +95,14 @@
 
 								<article >
 									
-<a href="naocale3.jpg" title="PRADA VPS 03B 2AZ">
+<a href="pictures/naocale3.jpg" title="PRADA VPS 03B 2AZ">
 										
 
 
-<img src="naocale3.jpg" alt="PRADA VPS 03B 2AZ" title="PRADA VPS 03B 2AZ"  />
+<img src="pictures/naocale3.jpg" alt="PRADA VPS 03B 2AZ" title="PRADA VPS 03B 2AZ"  />
 </a>
 
-												<h2><a href="naocale3.jpg" title="PRADA VPS 03B 2AZ">PRADA VPS 03B 2AZ</a></h2>
+												<h2><a href="pictures/naocale3.jpg" title="PRADA VPS 03B 2AZ">PRADA VPS 03B 2AZ</a></h2>
 												
 <p></p>
 												<div ><h3>Cijena: 640.00 KM</h3></div>
@@ -116,16 +115,16 @@
 									
 
 									
-<a href="naocale4.jpg" title="PRADA 55B 1BO">
+<a href="pictures/naocale4.jpg" title="PRADA 55B 1BO">
 										
 
 
-<img src="naocale4.jpg" alt="PRADA 55B 1BO" title="PRADA 55B 1BO" />
+<img src="pictures/naocale4.jpg" alt="PRADA 55B 1BO" title="PRADA 55B 1BO" />
 </a>
 
 
 									
-												<h2><a href="naocale4.jpg" title="PRADA 55B 1BO">PRADA 55B 1BO</a></h2>
+												<h2><a href="pictures/naocale4.jpg" title="PRADA 55B 1BO">PRADA 55B 1BO</a></h2>
 												
 <p></p>
 												<h3>Cijena: 750.00 KM</h3>
@@ -134,17 +133,17 @@
 
 								<article >
 												
-<a href="naocale5.jpg" title="PERSOL 2975 926">
+<a href="pictures/naocale5.jpg" title="PERSOL 2975 926">
 										
 
 
-<img src="naocale5.jpg" alt="PERSOL 2975 926" title="PERSOL 2975 926" />
+<img src="pictures/naocale5.jpg" alt="PERSOL 2975 926" title="PERSOL 2975 926" />
 </a>
 
 
 								
 								
-												<h2><a href="naocale5.jpg" title="PERSOL 2975 926">PERSOL 2975 926</a></h2>
+												<h2><a href="pictures/naocale5.jpg" title="PERSOL 2975 926">PERSOL 2975 926</a></h2>
 												
 <p></p>
 										<h3>Cijena: 340.00 KM</h3>

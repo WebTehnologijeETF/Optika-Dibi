@@ -6,14 +6,14 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="meniSkripta.js"></script>
+	<script src="jsFiles/meniSkripta.js"></script>
 
-<script src="ucitavanje.js"></script>
+<script src="jsFiles/ucitavanje.js"></script>
 	</head>
 	
 <body id="main">
 <header class="izbornik">
-	<img src="logo.jpg" alt="nesto">
+	<img src="pictures/logo.jpg" alt="nesto">
 
 <ul id="sddm">
     <li><a 
@@ -29,22 +29,22 @@
 		<a onclick="Load('Naslovnica.php');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
-    <li><a onclick="Load('Katalog.html');"
+    <li><a  onclick="Load('ONama.php');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.php');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
-        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
-        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
-        <a  onclick="Load('Katalog.html');">Accessories </a>
+        <a  onclick="Load('Katalog.php');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.php');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.php');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.php');">Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Usluge.php');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php');">Kontakt</a></li>
 </ul>
 <div style="clear:both"></div>
@@ -52,6 +52,7 @@
 </header>
 
 <div class="podloga" >
+<?php include 'login.php';?>
 	<div class="dodatna">
 <br>
 <h2>DIBI OPTIKA d.o.o.</h2>
@@ -77,10 +78,10 @@ U svim našim poslovnicama pružamo usluge kompjuterskog određivanja dioptrije 
 
 <br><br>
 	<div class="lijeviKontakt">
-									<img src="optika1.jpg" alt="jh">
-								<img src="optika3.jpg" alt="jsh"><br>
-									<img src="optika2.jpg" alt="jhd" >
-								<img src="optika5.jpg" alt="jhs">
+									<img src="pictures/optika1.jpg" alt="jh">
+								<img src="pictures/optika3.jpg" alt="jsh"><br>
+									<img src="pictures/optika2.jpg" alt="jhd" >
+								<img src="pictures/optika5.jpg" alt="jhs">
 								
 </div>
 	<div class="desniKontakt">

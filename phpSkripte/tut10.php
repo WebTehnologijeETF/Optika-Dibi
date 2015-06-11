@@ -9,8 +9,7 @@ function zag() {
 function rest_get($request, $data) { 
 
 $idvijesti = $data['ID'];
-
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
 if ($idvijesti==1000){
 $upit = $veza->prepare("SELECT * FROM komentar");
@@ -29,57 +28,55 @@ $upit->execute();
 
 }
 function rest_post($request, $data) { 
-
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+	$veza->exec("set names utf8");
+	
 session_start();
 if (isset($_SESSION['username']) ){
 	$username = $_SESSION['username'];
 	$poruka = $data['tekst'];
-	$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-	$veza->exec("set names utf8");
+	$email=$_SESSION['email'];
+	$ID=$data['ID'];
 	
 	$upit2 = $veza->prepare("SELECT * FROM korisnik WHERE Username=?");
 	$upit2->bindValue(1, $username, PDO::PARAM_INT);
 	$upit2->execute();
-	
-	foreach ($upit2 as $user){
-	$email=$user["email"];
-	}
-	
-	//hard kodirala za sada
-$idvijesti=1;
+
 	$rezultat= $veza-> query( "INSERT INTO komentar (Autor, Email , Tekst,Novosti)
-    VALUES ('$username', '$email', '$poruka','$idvijesti')"
+    VALUES ('$username', '$email', '$poruka','$ID')"
 	);
-	print "{ \"komentari\": " . json_encode($rezultat->fetchAll()) . "}";	
-	
 }
 else {
 	
-	$username = "anonimac";
+	$username ="anonimac";
 	$poruka = $data['tekst'];
-	$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-	$veza->exec("set names utf8");
+	$email= "";
+	$ID=$data['ID'];
 	
-	//hard kodirala za sada
-	$idvijesti=1;
-	$rezultat= $veza-> query( "INSERT INTO komentar (Autor , Tekst,Novosti)
-    VALUES ('$username','$poruka','$idvijesti')"
+	$rezultat= $veza-> query( "INSERT INTO komentar ( Tekst,Novosti)
+    VALUES ('$poruka','$ID')"
 	);
 	
-print "{ \"komentari\": " . json_encode($rezultat->fetchAll()) . "}";	
 
 }
 
+ $ok="ok";
+	$arr = array('ok' => $ok);
+echo json_encode($arr);
 }
 function rest_delete($request,$data) { 
 $idkomentar = $data['ID'];
-echo $idkomentar;
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
 
-$upit = $veza->prepare("delete from Komentar where IDKomentar =?");
+$upit = $veza->prepare("delete from komentar where IDKomentar =?");
 $upit->bindValue(1, $idkomentar, PDO::PARAM_INT);
 $upit->execute();
+
+ 	 $ok="ok";
+	$arr = array('ok' => $ok);
+echo json_encode($arr);
 }
 
 function rest_put($request, $data) { }

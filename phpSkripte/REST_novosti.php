@@ -9,8 +9,7 @@ function zag() {
 function rest_get($request, $data) { 
 
 $idvijesti = $data['ID'];
-
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
 if ($idvijesti==1000){
 $upit = $veza->prepare("SELECT * FROM novosti");
@@ -35,31 +34,32 @@ function rest_post($request, $data) {
 	$detaljnije = $data['detaljnije'];
 	$naslov = $data['naslov'];
 	$slika = $data['slika'];
-	$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 	$veza->exec("set names utf8");
 
-$rezultat= $veza-> prepare( "INSERT INTO Novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
+$rezultat= $veza-> prepare( "INSERT INTO novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
     VALUES (?,?,?,?,?)"
 	);
 	$rezultat->execute(array($autor,$naslov,$tekst,$detaljnije,$slika));
-	     if (!$rezultat) {
-          $greska = $kom->errorInfo();
-          print "SQL greška: " . $greska[2];
-          exit();
-     }
 
-	
-
+	 $ok="ok";
+	$arr = array('ok' => $ok);
+echo json_encode($arr);
 }
 function rest_delete($request,$data) { 
 $idkomentar = $data['ID'];
-echo $idkomentar;
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
+$upit2 = $veza->prepare("delete from komentar where Novosti =?");
+$upit2->bindValue(1, $idkomentar, PDO::PARAM_INT);
+$upit2->execute();
 
 $upit = $veza->prepare("delete from novosti where IDNovosti =?");
 $upit->bindValue(1, $idkomentar, PDO::PARAM_INT);
 $upit->execute();
+$ok="ok";
+	$arr = array('ok' => $ok);
+echo json_encode($arr);
 }
 
 function rest_put($request, $data) { 
@@ -69,7 +69,7 @@ function rest_put($request, $data) {
 	$naslov = $data['naslov'];
 	$slika = $data['slika'];
 	$ID=$data['ID'];
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
 	  	$rezultat= $veza-> prepare( "UPDATE novosti SET Autor = ?, Naslov =?,Tekst=?, Detaljnije=?, Slika=? WHERE IDNovosti=?"); 
 
@@ -79,6 +79,9 @@ $veza->exec("set names utf8");
           print "SQL greška: " . $greska[2];
           exit();
      }
+	 	 $ok="ok";
+	$arr = array('ok' => $ok);
+echo json_encode($arr);
 }
 function rest_error($request) { }
 

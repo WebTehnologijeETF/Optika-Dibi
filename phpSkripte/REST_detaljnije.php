@@ -10,7 +10,7 @@ function rest_get($request, $data) {
 
 $idvijesti = $data['ID'];
 
-$veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
+  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
 $veza->exec("set names utf8");
 
 $upit = $veza->prepare("SELECT * FROM novosti WHERE IDNovosti=?");

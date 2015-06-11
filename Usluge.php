@@ -7,14 +7,14 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="ucitavanje.js"></script>
-<script src="meniSkripta.js"></script>
+	<script src="jsFiles/ucitavanje.js"></script>
+<script src="jsFiles/meniSkripta.js"></script>
 
 	</head>
 	
 <body id ="main">
 <header class="izbornik">
-	<img src="logo.jpg" alt="slikaca">
+	<img src="pictures/logo.jpg" alt="slikaca">
 
 <ul id="sddm">
    <li><a 
@@ -30,22 +30,22 @@
 		<a onclick="Load('Naslovnica.php');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
-    <li><a onclick="Load('Katalog.html');"
+    <li><a  onclick="Load('ONama.php');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.php');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
-        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
-        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
-        <a  onclick="Load('Katalog.html');">Accessories </a>
+        <a  onclick="Load('Katalog.php');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.php');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.php');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.php');">Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Usluge.php');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php');">Kontakt</a></li>
 </ul>
 <div style="clear:both"></div>
@@ -54,7 +54,9 @@
 
 
 <div class="podloga">
+<?php include 'login.php';?>
 <div class="dodatna">
+
 <br>
 <div class="lijeviKontakt">
 	<div class="scroll2">
@@ -62,7 +64,7 @@
 Upotrebom dioptrijskih i sunčanih naočala često dolazi do oštećenja,lomova<br>
  I drugih promjena na naočalama što rezultira nemogučnošću daljnjeg korištenja.<br>
 <p >
-<img src="stakla1.jpg" alt="slika" >
+<img src="pictures/stakla1.jpg" alt="slika" >
 </p>
 U našem servisu mogučnosti poravaka su velike, potrudit ćemo se popraviti ih<br>
  i time vas poštediti većih financijskih izdataka.<br>

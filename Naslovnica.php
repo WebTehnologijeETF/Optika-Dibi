@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 	<html> 
 	<head>
@@ -8,9 +10,9 @@
 		<title>Optičke usluge | Mjerenje vida | Izrada naočala | Cijena | Prodaja | Akcija</title>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="meniSkripta.js"></script>
-		<script src="jsFile.js"></script>
-<script src="ucitavanje.js"></script>
+	<script src="jsFiles/meniSkripta.js"></script>
+		<script src="jsFiles/jsFile.js"></script>
+<script src="jsFiles/ucitavanje.js"></script>
 
 	</head>
 	
@@ -18,7 +20,7 @@
 
 
 <header class="izbornik">
-<img src="logo.jpg" alt="sk">
+<img src="pictures/logo.jpg" alt="sk">
 
 
 
@@ -36,22 +38,22 @@
 		<a onclick="Load('Naslovnica.php');">Varilux 1+1</a>
         </div>
     </li>
-    <li><a  onclick="Load('ONama.html');" >O nama</a></li>
-    <li><a onclick="Load('Katalog.html');"
+    <li><a  onclick="Load('ONama.php');" >O nama</a></li>
+    <li><a onclick="Load('Katalog.php');"
 	 onmouseover="mopen('m2')" 
         onmouseout="mclosetime()">Katalog proizvoda</a>
 	       <div id="m2" 
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
-        <a  onclick="Load('Katalog.html');">Dioptrijski okviri</a>
-        <a onclick="Load('Katalog.html');">Dioptrijske leće</a>
-        <a  onclick="Load('Katalog.html');">Sunčane naočale</a>
-        <a  onclick="Load('Katalog.html');"> >Accessories </a>
+        <a  onclick="Load('Katalog.php');">Dioptrijski okviri</a>
+        <a onclick="Load('Katalog.php');">Dioptrijske leće</a>
+        <a  onclick="Load('Katalog.php');">Sunčane naočale</a>
+        <a  onclick="Load('Katalog.php');"> >Accessories </a>
         </div>
 	
 	
 	</li>
-    <li><a  onclick="Load('Usluge.html');">Usluge</a></li>
+    <li><a  onclick="Load('Usluge.php');">Usluge</a></li>
     <li><a  onclick="Load('Kontakt.php'); ">Kontakt</a></li>
 </ul>
 <br>
@@ -67,38 +69,10 @@ header('Content-type: text/html; charset=utf-8');
 
 ?>
 		 
-<div class="podloga" >
-<?php 
-	 session_start();
-if (isset($_SESSION['username']) ){
+<div class="podloga" id="neka">
 
-		 $username = $_SESSION['username'];
-		
-		 ?>
-		 
-		 Logirani ste kao : <h3><?php echo $username?></h3><br>
-		 <a href ="logOut.php">logOut</a>
-		 <a href ="Admin.php">Admin panel </a>
-		 
-<?php 
-}
-else {?>
-<div class="lijevo" >
-<form   method="post" enctype="multipart/form-data" action="Admin.php" > 
- <label title="Unesite username" >Username: </label><br>                                                                  
-		<input type="text"  title="Username" id ="login1" name="login1" value="" ><br>
-		<label title="Unesite password" >Password: </label><br>                                                                  
-		<input type="password"  title="Sifra" id ="login2" name="login2"value=""   ><br>
-	<input class="my-stylish-button" type="submit" value="Login" id ="login"><br>
-	<a href="generisanjeSifre.php">Zaboravili ste svoju sifru?</a>
+<?php include 'login.php';?>
 
-</form>
-
-</div>
-
-<?php
-}
-?>
 	<div class="dodatna"><br><br>
 	<em>Ključ 20-godišnjeg uspjeha Jo-Jo optike je briga za klijenta, profesionalnost, individualni pristup, ljubaznost i raznolika ponuda te cijene pristupačne svakom klijentu.</em>
 	<br>
