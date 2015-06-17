@@ -13,7 +13,7 @@
 	
 <body id="main">
 <header class="izbornik">
-	<img src="pictures/logo.jpg" alt="nesto">
+<img src="pictures/logo.png" alt="sk">
 
 <ul id="sddm">
     <li><a 
@@ -52,7 +52,7 @@
 </header>
 
 <div class="podloga" >
-<?php include 'login.php';?>
+
 	<div class="dodatna">
 <br>
 <h2>DIBI OPTIKA d.o.o.</h2>
@@ -84,17 +84,7 @@ U svim našim poslovnicama pružamo usluge kompjuterskog određivanja dioptrije 
 								<img src="pictures/optika5.jpg" alt="jhs">
 								
 </div>
-	<div class="desniKontakt">
 
-		<h2>Saradnice:</h2>
-		<ul class="lista1">
-			<li><a href="http://jojo-optika.hr/">Optika Jo-jo</a></li>
-			<li><a href="http://www.optika-durak.ba/">Optika Durak</a></li>
-			<li><a href="http://www.ghetaldus.hr/">Ghetaldus Optika</a> </li>
-			<li><a href="http://www.indeks.ba/preduzece/OPTIKA_APOLO_Sarajevo.html">Optika Apolo</a></li>
-			<li><a href="http://optika-anda.com/">Optika Anda</a></li>
-		</ul>
-</div>
 <p>
 
 

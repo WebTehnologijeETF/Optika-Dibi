@@ -9,8 +9,8 @@ function zag() {
 function rest_get($request, $data) { 
 
 $idvijesti = $data['ID'];
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-$veza->exec("set names utf8");
+  $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 if ($idvijesti==1000){
 $upit = $veza->prepare("SELECT * FROM komentar");
 $upit->bindValue(1, $idvijesti, PDO::PARAM_INT);
@@ -28,8 +28,8 @@ $upit->execute();
 
 }
 function rest_post($request, $data) { 
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-	$veza->exec("set names utf8");
+  $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 	
 session_start();
 if (isset($_SESSION['username']) ){
@@ -67,9 +67,8 @@ echo json_encode($arr);
 function rest_delete($request,$data) { 
 $idkomentar = $data['ID'];
 
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-$veza->exec("set names utf8");
-
+   $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 $upit = $veza->prepare("delete from komentar where IDKomentar =?");
 $upit->bindValue(1, $idkomentar, PDO::PARAM_INT);
 $upit->execute();

@@ -18,14 +18,14 @@ function rest_get($request, $data) {
 
 function rest_post($request, $data) { 
 
- $godiste = $data["godiste"];
+
    $telefon = $data["telefon"];
    $email = $data["email"];
    $name = $data["ime"];
     $comment = $data["komentar"];
 	
 	$message = "Postovani $name,\r\n";
-$message.="Vas telefon  je $telefon , godiste  je $godiste , a komentar je $comment"	;
+$message.="Vas telefon  je $telefon , godiste  je , a komentar je $comment"	;
  $message .= "\r\nHvala,\r\n";
   $message .= "-- Dibi optika tim";						
 										       
@@ -37,7 +37,7 @@ $message.="Vas telefon  je $telefon , godiste  je $godiste , a komentar je $comm
         array(
             "host"     => "ssl://webmail.etf.unsa.ba",
             "username" => "ezugor1@etf.unsa.ba",
-            "password" => "",
+            "password" => "nepricaj456",
             "auth"     => true,
             "port"     => 465
         )

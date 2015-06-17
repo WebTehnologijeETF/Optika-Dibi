@@ -11,7 +11,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="jsFiles/meniSkripta.js"></script>
-		<script src="jsFiles/jsFile.js"></script>
+		
 <script src="jsFiles/ucitavanje.js"></script>
 
 	</head>
@@ -20,8 +20,7 @@
 
 
 <header class="izbornik">
-<img src="pictures/logo.jpg" alt="sk">
-
+<img src="pictures/logo.png" alt="sk">
 
 
 <ul id="sddm">
@@ -71,39 +70,13 @@ header('Content-type: text/html; charset=utf-8');
 		 
 <div class="podloga" id="neka">
 
-<?php include 'login.php';?>
+
 
 	<div class="dodatna"><br><br>
 	<em>Ključ 20-godišnjeg uspjeha Jo-Jo optike je briga za klijenta, profesionalnost, individualni pristup, ljubaznost i raznolika ponuda te cijene pristupačne svakom klijentu.</em>
 	<br>
 <?php include 'novosti.php';?>
-	<div class="desniKontakt">
-						
-							
-			<ul>
-
-
-				<li>	stručno savjetovanje i mjerenje vida</li>
-					<li>		servis svih vrsta naočala (popravka naočala)</li>
-					<li>		mogućnost plaćanja gotovinom i karticama</li>
-						
-						
-						
-						<li>	stručna pomoć pri odabiru okvira i  leća</li>
-							<li>	kontaktne leće i otopine</li>
-							
-					<li>	primamo recepte HZZO-a</li>
-				
-
-					<li>kvalitetna i brza izrada naočala </li>
-					<li>	velik izbor sunčanih i dioptrijskih okvira</li>
-						<li>	najbolji omjer cijene i kvalitete</li>
-				
-
-					</ul>	
-
-			
-</div>
+	
 
 
 <p>

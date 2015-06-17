@@ -17,8 +17,8 @@ function zag() {
 
 function rest_get($request, $data) { 
 
-$name = $email = $telefon = $godiste= $comment=$pass=$pass2= "";
- $nameErr= $emailErr =$telErr= $godErr=$passErr=$passErr2="";
+$name = $email = $telefon = $godiste= $comment=$pass=$adresa="";
+ $nameErr= $emailErr =$telErr= $godErr=$adresaErr="";
  
  
 
@@ -26,12 +26,12 @@ $name = $email = $telefon = $godiste= $comment=$pass=$pass2= "";
  $cek1=false;
  $cek2=false;
  $cek3=false;
- $cek4=true;
+ 
  $ima=false;
+ $cek5=false;
  $valid1=true;
  $valid2=true;
- $valid_pass=true;
-
+$adresa;
  $prikazi ='Potvrda_sigurnosti.php';
  
 
@@ -81,6 +81,17 @@ $name = $email = $telefon = $godiste= $comment=$pass=$pass2= "";
 	$cek3=true;
 	}
   }
+  
+  
+    if (empty($data["adresa"])) {
+    $adresaErr = "Morate unijeti adresu stanovanja";
+	$cek5=false;
+  } else {
+    $adresa = $data["adresa"];
+	 $$adresaErr = "Validna adresa";
+		$cek5=true;
+  }
+  
 
   if (empty($data["comment"])) {
     $comment = "";
@@ -88,67 +99,16 @@ $name = $email = $telefon = $godiste= $comment=$pass=$pass2= "";
     $comment = test_input($data["comment"]);
   }
 
-  if (empty($data["godiste"])) {
-    $godiste = "";
-	$cek4=true;
-  } else {
-    $godiste = $data["godiste"];
-	if (!is_numeric($godiste))
-	{
-		$godErr="nije unijet broj";
-		$cek4=false;
-		
-	}
-	else if ( intval($godiste)<1910 || intval($godiste)>1997 ){
-		$godErr="Godiste nije u validnom opsegu";
-		$cek4=false;
-	}
-	else {
-		$godErr="Validno godiste";
-		$cek4=true;
-	}
-  }
-  
-    if (empty($data["pass"])) {
-    $pass = "";
-  } else {
-    $pass = test_input($data["pass"]);
-  }
   
 
-  
-    if (empty($data["pass2"])) {
-    $pass2 = "";
-	if ($pass==""){
-		$valid_pass2=true;
-	$passErr2="";
-		
-	}
-	else {
-		$valid_pass2=false;
-		$passErr2="Ponovite password";
-	
-	}
-  } else {
-		$pass2 = test_input($data["pass2"]);
-	if ( $pass2!=$pass ){
-		$passErr2="Passwordi nisu identicni";
-		$valid_pass2=false;
-	}
-	else {
-		$passErr2="Identican password";
-		$valid_pass2=true;
-	}
-  }
 
-
-if ($cek1 && $cek2 && $cek3 && $cek4 && $valid_pass2 ){
+if ($cek1 && $cek2 && $cek3 && $cek5  ){
 	$validnost="T"; 
 //	include("kontakt2.php");
 }
 
 
-	$arr = array( 'godErr' => $godErr, 'emailErr' => $emailErr, 'telErr' => $telErr, 'nameErr' => $nameErr, 'passErr' => $passErr, 'passErr2' => $passErr2, 'validnost' => $validnost);
+	$arr = array( 'godErr' => $godErr,'adresaErr' => $adresaErr, 'emailErr' => $emailErr, 'telErr' => $telErr, 'nameErr' => $nameErr,  'validnost' => $validnost);
 echo json_encode($arr);
 }
 

@@ -6,14 +6,9 @@ function Load(link)
 			ajax.onreadystatechange = function() {// Anonimna funkcija
 			if (ajax.readyState == 4 && ajax.status == 200 )
 			{
-			
 				//document.getElementById('main').innerHTML = changeMain(ajax.responseText);
                 document.getElementById('main').innerHTML = ajax.responseText;
-				if (link=="Usluge.php")
-					KreirajTabelu();
-				//if (link=="Kontakt.php" )
-					//pozovi();
-				
+				window.scrollTo(0,200)
 			}
 			if (ajax.readyState == 4 && ajax.status == 404)
 				{
@@ -47,7 +42,6 @@ function posaljiMail(){
 	var ime=document.getElementById('name').value;
 	var email=document.getElementById('email').value;
 	var telefon =document.getElementById('telefon').value;
-	var godiste= document.getElementById('godiste').value;
 	var komentar=document.getElementById('poruka').value;
 	
 	var ajax = new XMLHttpRequest();
@@ -62,7 +56,7 @@ function posaljiMail(){
 					var kom = JSON.parse(tekst);
 			
 				 if (kom.ok == "ok") {
-					s="Uspjesno ste poslali mail <a href='Kontakt.php'>Natrag</a>"
+					s="<div class='login'><h2>Uspjesno ste poslali mail <a href='Kontakt.php'>Natrag</a></h2></div>"
 					document.getElementById("kontaktForma").innerHTML=s;
 				 }
             }
@@ -71,47 +65,8 @@ function posaljiMail(){
         }
 	  ajax.open("POST", "phpSkripte/slanjeMaila.php",true);
 	 ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	ajax.send("ime="+ime + "&email=" + email+ "&telefon=" + telefon+ "&godiste=" + godiste+ "&komentar=" + komentar );
-	
-	
-	
+	ajax.send("ime="+ime + "&email=" + email+ "&telefon=" + telefon+ "&komentar=" + komentar );
 }
-
-
-function poziv1(drzava,valuta){
-var ajax = new XMLHttpRequest();
-			var param = "https://restcountries.eu/rest/v1/currency/" + valuta;
-			
-			ajax.onreadystatechange = function() {// Anonimna funkcija
-			if (ajax.readyState == 4 && ajax.status == 200)
-			{
-			
-				var country = drzava;
-			
-				var data = JSON.parse(ajax.responseText);
-				if(data[0].name != country)
-				{
-					return 0;
-					// "The currency you entered doesnt't match the country");
-				
-				}
-				else
-				return 1; // dobar
-				
-				}
-			if (ajax.readyState == 4 && ajax.status == 404)
-				{
-					return 2; // ne postoji valuta ta
-				
-				
-				}
-				else return 3;
-		}
-			ajax.open("GET", param, true);
-			ajax.send();
-			
-}
-
 
 
 function kontaktValidacija(){
@@ -119,15 +74,9 @@ function kontaktValidacija(){
 	var ime=document.getElementById('name').value;
 	var email=document.getElementById('email').value;
 	var telefon =document.getElementById('telefon').value;
-	var godiste= document.getElementById('godiste').value;
-	var pass=document.getElementById('pass').value;
-	var pass2 =document.getElementById('pass2').value;
-	var drzava =document.getElementById('drzava').value;
-	var valuta=document.getElementById('valuta').value;
+	var adresa=document.getElementById('adresa').value;
 	var komentar=document.getElementById('poruka').value;
-	//var slika1=document.getElementById('slika1').value;
 	
-
 	var ajax = new XMLHttpRequest();
 	var obj;
         ajax.onreadystatechange = function() 
@@ -136,251 +85,78 @@ function kontaktValidacija(){
 
             if (ajax.readyState == 4 && ajax.status == 200)
             {
-					var valutaErr;
+				
 				var tekst = ajax.responseText;
-				kom = JSON.parse(tekst);
+				var kom = JSON.parse(tekst);
 				var validnost=kom.validnost;
 				var nameErr=kom.nameErr;
 				var emailErr=kom.emailErr;
 				var telErr=kom.telErr;
-				var godErr=kom.godErr;
-				if (drzava!="" ||valuta!=""){
+				var adresaErr=kom.adresaErr;
 				
-				valutaErr=poziv1(drzava,valuta);
-				alert(valutaErr);
-				}
-				var passErr2=kom.passErr2;
 				if(validnost=="T"){
-					
-					s='<br><br><h4>Provjerite da li ste ispravno popunili kontakt formu:</h4>'
-					+'<br> Da li ste sigurni da zelite poslati ove podatke?<br>'
-					+'<table id ="proslijedi" name= "proslijedi"> <tr>'
-					+'<td class="table-header" >Ime</td> <td class="table-header" >Email</td>'
-					+'<td class="table-header">Broj telefon</td> <td class="table-header">Godiste</td>'
-					+'<td class="table-header">Poruka</td></tr>'
-					+'<tr> <td>'+ime+'</td> <td>'+email+'</td> <td>'+telefon+'</td>'
-					+' <td>'+godiste+'</td><td>'+komentar+'</td></tr>'
-					+'<input type="hidden" name="siguran" value="da"><input type="hidden" name="name" value="'+ime+'">'
-					+'<input type="hidden" name="email" value="'+email+'">'
-					+'<input type="hidden" name="telefon" value="'+telefon+'">'
-					+' <input type="hidden" name="godiste" value="'+godiste+'">'
-					+' <input type="hidden" name="comment" value="'+komentar+'">'
-					+'<tr><td colspan ="5"><input class="my-stylish-button" name="action" type="button" onclick="posaljiMail(); return false;" value="Siguran sam">'
-					+'</td> </tr> </table>'
-					
-					+'<br><br><br>'
-					+'<div id ="kontaktForma"><label title="prvi znak mora biti slovo" >Ime *</label><br>  '                                                                
-					+'<input type="text" value="'+ime+'" title="prvi znak mora biti slovo" id ="name" name="name"  > <span class="error" id="error1">'
-		+'<img alt="slika5"  class="NOTOK" id="slika1" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" style="visibility:"hidden"/></span><br>'
-		+'<label title="unesite validan email" >E-mail *</label><br>'
-		+'<input type="email" value="'+email+'" title="unesite validan email" id ="email" name="email"  > <span class="error" id="error2">'
-		+'<img alt="slika6"  class="NOTOK" id="slika2" ></span><br>'
-		
-	
-		+'<label title="Telefon mora biti u obliku xxx-xxx">Telefon *</label><br>'
-		+'<input type="text"  title="Telefon mora biti u obliku xxx-xxx" id ="telefon" value="'+telefon+'" name="telefon" > <span class="error" id="error3">'
-		+'<img alt="slika7"  class="NOTOK" id="slika3" ></span><br>'
-			
-			
-		+'<label>Godište </label><br>'
-		+'<input type="number" name="godiste" min="1910" value="'+godiste+'" max="1997" id ="godiste"> <span class="error" id="error4">'
-		+'<img alt="slika8"  class="NOTOK" id="slika4"></span><br><br>'
-			+'<label>Password: </label><br>'
-		+'<input type="password" name="pass"   id ="pass" > <br><br>'
-		
-		
-		+'<label>Ponovi password: </label><br>'
-		+'<input type="password" name="pass2"  id ="pass2" > <span class="error" id="error5">'
-		+'<img alt="slika9"  class="NOTOK" id="slika5"></span><br><br>'
-		
-		+'<label title="država" >Država</label><br>'
-		+'<input type="text" value="'+drzava+'" title="Unesite državu" id ="drzava" name="drzava" ><img alt="slika9" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika5"><label title="drzava" class="not" id="upozorenje5" >Unesite validnu državu</label><br>'
-		+'<label title="valuta"  >Valuta</label><br>'
-		+'<input type="text" value="'+valuta+'" title="Unesite valutu" id ="valuta" name="valuta" ><img alt="slika10" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika6"><label title="tri slova" class="not" id="upozorenje6" >Unesite odgovarajuću valutu za državu</label><br>'
-		+'<label title="Morate unijeti validno ime">Poruka </label><br>'
-		+'<textarea title="Morate unijeti validno ime" id ="poruka"  name="comment" value="'+komentar+'" ></textarea><br><br>'
-	
-		+'&nbsp;&nbsp;<input class="my-stylish-button" type="button" value="Pošalji poruku" onClick="kontaktValidacija(); return false;" id ="dugme">'
-			   +'  <input class="my-stylish-button" name="action" type="reset" value="Reset"><br><br></div>';	
-					
-					
-					
-					document.getElementById("kontaktForma").innerHTML=s;
-					
-					
+				
+					posaljiMail();
 				}
 			
 				else {
+				
+				
 					document.getElementById('name').value=ime;
-				if(nameErr=="Morate unijeti ime" || nameErr=="Samo znakovi i blanko znakovi su dozvoljeni" ||  nameErr=="Validno ime") 
-							document.getElementById('slika1').style.visibility="visible";
-					else
-					slika1.style.visibility="hidden";
+				
 					if(nameErr=="Morate unijeti ime" || nameErr=="Samo znakovi i blanko znakovi su dozvoljeni" )
 						document.getElementById('name').style.backgroundColor="#FF8080";
 					else 
 						document.getElementById('name').style.backgroundColor="#80FF80";
 					if(nameErr=="Morate unijeti ime" || nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")
 						document.getElementById('name').class="NOTOK";
-					
-					if(nameErr=="Morate unijeti ime" || nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")
-						slika1.src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( nameErr=="Validno ime")
-						slika1.src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(nameErr=="Morate unijeti ime" || nameErr=="Samo znakovi i blanko znakovi su dozvoljeni")
-					slika1class="NOTOK";
-					else if( nameErr=="Validno ime")
-					 slika1class="OK";
 				 document.getElementById("error1").innerHTML=nameErr;
 				 
 				 document.getElementById('email').value=email;
-					if(emailErr=="Morate unijeti email" || emailErr=="Nije validan email formata" ||  emailErr=="Validan email") 
-						document.getElementById('slika2').style.visibility="visible";
-					else
-						document.getElementById('slika2').style.visibility="hidden";
+					
 					if(emailErr=="Morate unijeti email" || emailErr=="Nije validan email formata" )
 						document.getElementById('email').style.backgroundColor="#FF8080";
 					else 
 						document.getElementById('email').style.backgroundColor="#80FF80";
 					if(emailErr=="Morate unijeti email" || emailErr=="Nije validan email formata")
 						document.getElementById('email').class="NOTOK";
-					if(emailErr=="Morate unijeti email" || emailErr=="Nije validan email formata")
-						document.getElementById('slika2').src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( emailErr=="Validan email")
-						document.getElementById('slika2').src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(emailErr=="Morate unijeti email" || emailErr=="Nije validan email formata")
-					document.getElementById('slika2').class="NOTOK";
-					else if( emailErr=="Validan email")
-					 document.getElementById('slika2').class="OK";
 				document.getElementById("error2").innerHTML=emailErr;
 					
 					document.getElementById('telefon').value=telefon;
-					if(telErr=="Morate unijeti telefon" || telErr=="Nije validan format telefona" ||  telErr=="Validan broj") 
-						document.getElementById('slika3').style.visibility="visible";
-					else
-						document.getElementById('slika3').style.visibility="hidden";
+					
 					if(telErr=="Morate unijeti telefon" || telErr=="Nije validan format telefona" )
 						document.getElementById('telefon').style.backgroundColor="#FF8080";
 					else 
 						document.getElementById('telefon').style.backgroundColor="#80FF80";
 					if(telErr=="Morate unijeti telefon" || telErr=="Nije validan format telefona")
 						document.getElementById('telefon').class="NOTOK";
-					if(telErr=="Morate unijeti telefon" || telErr=="Nije validan format telefona")
-						document.getElementById('slika3').src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( telErr=="Validan broj")
-						document.getElementById('slika3').src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(telErr=="Morate unijeti telefon" || telErr=="Nije validan format telefona")
-					document.getElementById('slika3').class="NOTOK";
-					else if( telErr=="Validan broj")
-					 document.getElementById('slika3').class="OK";
 				  document.getElementById("error3").innerHTML=telErr;
-				 
-				 
-				 
-				 
-				 document.getElementById('godiste').value=godiste;
-					if(godErr=="Godiste nije u validnom opsegu" || godErr=="nije unijet broj" ||  godErr=="Validan broj") 
-						document.getElementById('slika4').style.visibility="visible";
-					else
-						document.getElementById('slika4').style.visibility="hidden";
-					if(godErr=="Godiste nije u validnom opsegu" || godErr=="nije unijet broj" )
-						document.getElementById('godiste').style.backgroundColor="#FF8080";
-					else 
-						document.getElementById('godiste').style.backgroundColor="#80FF80";
-					
-					if(godErr=="Godiste nije u validnom opsegu" || godErr=="nije unijet broj")
-						document.getElementById('godiste').class="NOTOK";
-					if(godErr=="Godiste nije u validnom opsegu" || godErr=="nije unijet broj")
-						document.getElementById('slika4').src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( godErr=="Validan broj")
-						document.getElementById('slika4').src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(godErr=="Godiste nije u validnom opsegu" || godErr=="nije unijet broj")
-					document.getElementById('slika4').class="NOTOK";
-					else if( godErr=="Validan broj")
-					 document.getElementById('slika4').class="OK";
-					document.getElementById("error4").innerHTML=godErr;
-				
-				
-				document.getElementById('pass2').value=pass2;
 
-					if(passErr2=="Ponovite password" || passErr2=="Passwordi nisu identicni" )
-						document.getElementById('pass2').style.backgroundColor="#FF8080";
+				
+				document.getElementById('adresa').value=adresa;
+					
+					if(adresaErr=="Morate unijeti adresu stanovanja")
+						document.getElementById('adresa').style.backgroundColor="#FF8080";
 					else 
-						document.getElementById('pass2').style.backgroundColor="#80FF80";
-					if(passErr2=="Ponovite password" || passErr2=="Passwordi nisu identicni" || passErr2=="Identican password")
-						document.getElementById('slika5').style.visibility="visible";
-					else
-						document.getElementById('slika5').style.visibility="hidden";
+						document.getElementById('adresa').style.backgroundColor="#80FF80";
+					if(adresaErr=="Morate unijeti adresu stanovanja")
+						document.getElementById('adresa').class="NOTOK";
 					
-					
-					if(passErr2=="Ponovite password" || passErr2=="Passwordi nisu identicni")
-						document.getElementById('slika5').src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( passErr2=="Validan broj")
-						document.getElementById('slika5').src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(passErr2=="Ponovite password" || passErr2=="Passwordi nisu identicni")
-					document.getElementById('slika5').class="NOTOK";
-					else if( passErr2=="Validan broj")
-					 document.getElementById('slika5').class="OK";
-					
-			 document.getElementById("error5").innerHTML=passErr2;
-			 
-			 document.getElementById('drzava').value=drzava;
-			 document.getElementById('valuta').value=valuta;
-			if (drzava!="" ||valuta!=""){
-			 if(valutaErr==0 || valutaErr==2 )
-						document.getElementById('valuta').style.backgroundColor="#FF8080";
-					else 
-						document.getElementById('valuta').style.backgroundColor="#80FF80";
-					if(valuta==0 || valuta==1 || valuta==2)
-						document.getElementById('slika10').style.visibility="visible";
-					else
-						document.getElementById('slika10').style.visibility="hidden";
-					
-					
-					if(valutaErr==0 || valutaErr==2)
-						document.getElementById('slika10').src= "https://zamger.etf.unsa.ba/images/16x16/brisanje.png";
-					else if( valutaErr=="Validan broj")
-						document.getElementById('slika10').src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png";
-					if(valutaErr==0|| valutaErr==2)
-					document.getElementById('slika10').class="NOTOK";
-					else if( valutaErr=="Validan broj")
-					 document.getElementById('slika10').class="OK";
-				}}
+				  document.getElementById("error4").innerHTML=adresaErr;
+
+			
+				}
             }
 			
             else if (ajax.readyState == 4 && ajax.status == 404)
                 obj.innerHTML = "Greska: nepoznat URL";
         }
-	  ajax.open("GET", "phpSkripte/kontaktValidiranje.php?ime=" + ime + "&email=" + email +"&telefon=" + telefon +"&godiste=" + godiste +"&pass=" + pass +"&pass2=" + pass2 ,true);
+	  ajax.open("GET", "phpSkripte/kontaktValidiranje.php?ime=" + ime + "&email=" + email +"&telefon=" + telefon +"&adresa=" + adresa,true);
 	ajax.send();
 	
-	
 }
 
 
-
-function dodaj()
-{
-    var s = '<br>' 
-            +'<div>Odaberite opciju: </div>'
-            +'<select id="akcija" onchange="izvrsi()">'
-            +'<option value = "Dodavanje">Dodavanje</option>'
-            +'<option value = "Promjena">Promjena</option>'
-            +'<option value = "Brisanje">Brisanje</option>'
-            +'</select><br><br>'
-            +'<label>Naziv: </label><br>'
-            +'<input type="text" id="inaziv"><br>'
-            +'<label>Cijena: </label><br>'
-            +'<textarea id="cijena"></textarea><br>'
-            +'<label>Opis: </label><br>'
-            +'<textarea id="op"></textarea><br>'
-			+'<label>Količina: </label><br>'
-			+'<textarea id="kol"></textarea><br>'
-          
-            +'<input class="dodaj" type="button" value="Dodaj" onClick="change()">';
-    
-    return s;
-}
 function staviPrazno(ID){
 	
 	if (ID>0 && ID <1000){
@@ -391,44 +167,7 @@ function staviPrazno(ID){
 
 
 
-function logujKorisnika(){
-		var username= document.getElementById('login1').value;
-			var password=document.getElementById('login2').value;
-	 var ajax = new XMLHttpRequest();
-	
-		var username;
-			var password;
-        ajax.onreadystatechange = function() 
-        {
-			
-		
-	
-			var kom;
-            var obj = document.getElementById('neka') ;
-            if (ajax.readyState == 4 && ajax.status == 200)
-            {
-				  var tekst = ajax.responseText;
-					kom = JSON.parse(tekst);
-				if (kom.ok=="ok"){
-					alert("Uspjesno ste se logovali kao korisnik");
-					Load("../Naslovnica.php")
-				}
-				else {
-					
-					alert("niste se uspjesno logovali");
-				}
-				}
-
-            else if (ajax.readyState == 4 && ajax.status == 404)
-                obj.innerHTML = "Greska: nepoznat URL";
-        }	
-	
-	  ajax.open("GET", "phpSkripte/REST_logiranje.php?username="+username+"&password=" + password,true);
-	 
-	ajax.send();
-}
-
-
+var upamti=0;
 function novosti(ID)
 {
         var ajax = new XMLHttpRequest();
@@ -437,14 +176,20 @@ function novosti(ID)
             var obj = document.getElementById(ID) ;
             if (ajax.readyState == 4 && ajax.status == 200)
             {
+				if (upamti==0){
 				  var tekst = ajax.responseText;
 				kom = JSON.parse(tekst);
 				 var p = kom.novosti[0];
-				var s='<br>'+ p.Detaljnije +'<br>'
-				+ '<input class="my-stylish-button" value="sakrij detaljnije" type="submit" onclick = "staviPrazno('+ID+');">';
-			//\" s = " .. " \"
+				var s='<br>'+ p.Detaljnije +'<br>';
+		
                 obj.innerHTML = s;
+				upamti=1;
+				}
+				else {
+					staviPrazno(ID);
+					upamti=0;
 					
+				}
             }
             else if (ajax.readyState == 4 && ajax.status == 404)
                 obj.innerHTML = "Greska: nepoznat URL";
@@ -454,21 +199,6 @@ function novosti(ID)
 	ajax.send();
 
 }
-/*
-setInterval(function() {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-         if (request.readyState == 4 && request.status == 200) {
-			 
-         }
-		 
-      }
-    request.open('GET', '../Naslovnica.php', true);
-    request.send();
-
-}, 5000);
-
-*/
 
 
 
@@ -501,7 +231,7 @@ function postaviKomentar(ID){
 	ajax.send("tekst="+s + "&ID=" + ID );
 }
 
-
+var klik=0;
 function komentari(ID)
 {
         var ajax = new XMLHttpRequest();
@@ -514,7 +244,7 @@ function komentari(ID)
                 var tekst = ajax.responseText;
 				 kom = JSON.parse(tekst);
 
-             
+             if (klik==0){
                 for(var i=0; i<kom.komentari.length; i++)
                 {	
 			
@@ -553,14 +283,19 @@ function komentari(ID)
 				//ne treba mi vise nista, samo poruka
 				s=s+'<textarea id ="poruka" value="" name="comment" value="">'
 				+'</textarea><br><br>'
-				+'&nbsp;&nbsp;<input class="my-stylish-button" type="button" value="Pošalji poruku" id ="dugme" onclick="postaviKomentar('+ID+');"><br><br>'
-					+ '<input class="my-stylish-button" value="sakrij detaljnije" type="submit" onclick = "staviPrazno('+ID+');">';
+				+'&nbsp;&nbsp;<input class="my-stylish-button" type="button" value="Pošalji poruku" id ="dugme" onclick="postaviKomentar('+ID+');"><br><br>';
 				
 				}
 				if (ID>0 && ID <1000){
 					
 				document.getElementById(ID).innerHTML=s;
-				}
+			 }
+			 klik=1;
+			 }
+			 else {
+				 staviPrazno(ID);
+				 klik=0;
+			 }
             }
 			
             else if (ajax.readyState == 4 && ajax.status == 404)
@@ -1498,176 +1233,6 @@ function detalji(ID)
 
 
 
-
-function ebrisanje()
-{
-    var id = document.getElementById('tablica').value;
-    var nazivp = document.getElementById('inaziv');
-    var cijenap = document.getElementById('cijena');
-    var opisp = document.getElementById('op');
-       var kolicina = document.getElementById('kol');
-	
-	 
-    var dugme = document.getElementById('obrisi');
-    
-    var proizvodi=[];
-    var usluge = document.getElementsByClassName("usluge-opis")[0];
-    var ajax = new XMLHttpRequest();
-    var tekst = "";
-    ajax.onreadystatechange = function() {// Anonimna funkcija
-        if (ajax.readyState == 4 && ajax.status == 200)
-        {
-            if (tekst!==ajax.responseText)
-            {
-                tekst = ajax.responseText;
-                proizvodi = JSON.parse(tekst);
-               
-                for(var i=0; i<proizvodi.length; i++)
-                {
-                     var p = proizvodi[i];
-                    if(id == p.id && id.length > 0)
-                    {
-                        nazivp.value =  p.naziv;
-                        cijenap.value = p.cijena;
-                        opisp.value = p.opis;
-						kolicina.value=p.kolicina;
-                       
-                        
-                        dugme.disabled = false;
-                        break;
-                    }
-                    else
-                        dugme.disabled = true;
-                }      
-            }
-        }
-        if (ajax.readyState == 4 && ajax.status == 404)
-            alert("Nepostojeći proizvod!");
-        if (ajax.readyState == 4 && ajax.status == 400)
-            alert("Neispravni podaci!");
-    };
-    ajax.open("GET", "http://zamger.etf.unsa.ba/wt/proizvodi.php?brindexa=16264", true);
-    ajax.send();
-            
-}
-
-function brisanje()
-{
-        var s = '<br>' 
-            +'<div>Odaberite opciju: </div>'
-            +'<select id="akcija" onchange="izvrsi()">'
-            +'<option value = "Brisanje">Brisanje</option>'
-            +'<option value = "Promjena">Promjena</option>'
-            +'<option value = "Dodavanje">Dodavanje</option>'
-            +'</select><br><br>'
-            +'<label>ID: </label><br>'
-            +'<input type="text" id="tablica" onchange="ebrisanje()"><br>'
-            +'<label>Naziv: </label><br>'
-            +'<input type="text" id="inaziv" disabled><br>'
-            +'<label>Cijena: </label><br>'
-            +'<textarea id="cijena" disabled></textarea><br>'
-            +'<label>Opis: </label><br>'
-            +'<textarea id="op" disabled></textarea><br>'
-			+'<label>Količina: </label><br>'
-			+'<textarea id="kol"></textarea><br>'
-        
-            +'<input class="dodaj" id="obrisi" type="button" value="Brisanje" onClick="change()" disabled>';
-    
-    return s;
-}
-
-function edodaj()
-{
-    var id = document.getElementById('tablica').value;
-    var nazivp = document.getElementById('inaziv');
-
-    var cijenap = document.getElementById('cijena');
-    var opisp = document.getElementById('op');
-	   var kolicina = document.getElementById('kol');
-   
-    var dugme = document.getElementById('promijeni');
-    
-      var proizvodi=[];
-    var usluge = document.getElementsByClassName("usluge-opis")[0];
-    var ajax = new XMLHttpRequest();
-    var tekst = "";
-    ajax.onreadystatechange = function() {// Anonimna funkcija
-        if (ajax.readyState == 4 && ajax.status == 200)
-        {
-            if (tekst!==ajax.responseText)
-            {
-                tekst = ajax.responseText;
-                proizvodi = JSON.parse(tekst);
-               
-                for(var i=0; i<proizvodi.length; i++)
-                {
-                     var p = proizvodi[i];
-                    if(id == p.id && id.length > 0)
-                    {
-                        nazivp.disabled = false;
-                        cijenap.disabled = false;
-                        opisp.disabled = false;
-                        
-						kolicina.disabled=false;
-                        dugme.disabled = false;
-                       
-                        nazivp.value =  p.naziv;
-                        cijenap.value = p.cijena;
-                        opisp.value = p.opis;
-						kolicina.value=p.kolicina;
-                       
-                        
-                        break;
-                    }
-                    else
-                    {
-                        nazivp.disabled = true;
-                        cijenap.disabled = true;
-                        opisp.disabled = true;
-                        
-						kolicina.disabled=true;
-                        dugme.disabled = true;
-                    }
-                }      
-            }
-        }
-        if (ajax.readyState == 4 && ajax.status == 404)
-            alert("Nepostojeći proizvod!");
-        if (ajax.readyState == 4 && ajax.status == 400)
-            alert("Neispravni podaci!");
-    };
-    ajax.open("GET", "http://zamger.etf.unsa.ba/wt/proizvodi.php?brindexa=16264", true);
-    ajax.send();
-            
-}
-
-function promjena()
-{
-    var s = '<br>' 
-            +'<div>Odaberite opciju: </div>'
-            +'<select id="akcija" onchange="izvrsi()">'
-            +'<option value = "Promjena">Promjena</option>'
-            +'<option value = "Dodavanje">Dodavanje</option>'
-            +'<option value = "Brisanje">Brisanje</option>'
-            +'</select><br><br>'
-            +'<label>ID: </label><br>'
-            +'<input type="text" id="tablica" onchange="edodaj()"><br>'
-            +'<label>Naziv: </label><br>'
-            +'<input type="text" id="inaziv" disabled><br>'
-            +'<label>Cijena: </label><br>'
-            +'<textarea id="cijena" disabled></textarea><br>'
-            +'<label>Opis: </label><br>'
-            +'<textarea id="op" disabled></textarea><br>'
-			+'<label>Količina: </label><br>'
-			+'<textarea id="kol"></textarea><br>'
-            
-            +'<input class="dodaj" id="promijeni" type="button" value="Promijeni" onClick="change()" disabled>';
-    
-    return s;
-}
-
-
-
 function censor(censor) {
   var i = 0;
 
@@ -1684,131 +1249,3 @@ function censor(censor) {
   }
 }
 
-//USLUGE
-function izvrsi()
-{
-    var izbor = document.getElementById("akcija").value.toLowerCase();
-    switch(izbor)
-    {
-            case "dodavanje": 
-                document.getElementsByClassName('usluge')[0].innerHTML = dodaj();
-            break;
-            case "brisanje": 
-                document.getElementsByClassName('usluge')[0].innerHTML = brisanje();
-            break;
-            case "promjena":
-                document.getElementsByClassName('usluge')[0].innerHTML = promjena();
-            break;
-    }
-}
-
-function change()
-{
-        var ajax = new XMLHttpRequest();
-        
-        ajax.onreadystatechange = function() {// Anonimna funkcija
-            if (ajax.readyState == 4 && ajax.status == 200)
-            {
-                    alert("Uspješno dodani/promijenjeni podaci proizvoda!");
-            }
-            if (ajax.readyState == 4 && ajax.status == 404)
-                alert("Nepostojeći proizvod!");
-            if (ajax.readyState == 4 && ajax.status == 400)
-                alert("Neispravni podaci!");
-        };
-
-        ajax.open("POST", "http://zamger.etf.unsa.ba/wt/proizvodi.php?brindexa=16264", true);
-        ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        
-         var akcija = document.getElementById('akcija').value.toLowerCase();
-         var nazivp = document.getElementById('inaziv').value;
-         var cijenap = String(document.getElementById('cijena').value);
-         var opisp = document.getElementById('op').value;
-		  var kolicina = document.getElementById('kol').value;
-      
-    
-        var A={};
-        if(akcija == "promjena")
-        {
-            var tablica = document.getElementById('tablica').value;
-            A = {"id":tablica,"naziv": nazivp, "cijena": cijenap, "opis": opisp,"kolicina": kol};
-        }
-        else if(akcija == "brisanje")
-        {
-           var tablica = document.getElementById('tablica').value;
-           A = {"id":tablica};  
-        }
-        else
-        {
-            A = {"naziv": nazivp, "cijena": cijenap, "opis": opisp,"kolicina": kol};
-        }
-         
-         console.log("akcija=" + akcija);
-         ajax.send("akcija=" + akcija + "&proizvod=" + JSON.stringify(A,censor(A)));
-}
-
-
-
-function KreirajTabelu(proizvodi)
-{
-    var s="";
-    if (undefined!==proizvodi ){
-    for(var i = 0; i< proizvodi.length; i++)
-    {
-        var p = proizvodi[i];
-        s+= "<tr><td class='margina'>ID: "+p.id+"</td></tr>";
-        s+="<tr><th class='naziv'>"+p.naziv+"</th></tr>";
-        s+="<tr><td class='podnaslov'>Cijena</td></tr>";
-        s+="<tr><td class='cijena'>"+p.cijena+"</td></tr>";
-        s+="<tr><td class='podnaslov'>Opis</td></tr>";
-        s+="<tr><td class='opis'>"+p.opis+"</td></tr>";
-		 s+="<tr><td class='kolicina'>"+p.kolicina+"</td></tr>";
-
-    } 
-    console.log(s)
-    return s;}
-    else return;
-}
-
-function podesiVelicine(proizvodi)
-{
-    for(var i = 0; i<proizvodi.length; i++)
-    {
-        var p = proizvodi[i];
-      
-       document.getElementsByClassName('margina')[i].style.paddingTop="20px"; 
-       document.getElementsByClassName("usluge-opis")[i].style.width="50%";     
-    } 
-    
-}
-
-function prikazi()
-{
-    var proizvodi=[];
-    var usluge = document.getElementsByClassName("usluge-opis")[0];
-    var ajax = new XMLHttpRequest();
-    var tekst = "";
-    ajax.onreadystatechange = function() {// Anonimna funkcija
-        if (ajax.readyState == 4 && ajax.status == 200)
-        {
-            if (tekst!==ajax.responseText)
-            {
-                tekst = ajax.responseText;
-         
-                proizvodi = JSON.parse(tekst);
-          
-              usluge.innerHTML = KreirajTabelu(proizvodi);
-                podesiVelicine(proizvodi);
-            }
-        }
-        if (ajax.readyState == 4 && ajax.status == 404)
-            alert("Nepostojeći proizvod!");
-        if (ajax.readyState == 4 && ajax.status == 400)
-            alert("Neispravni podaci!");
-    };
-
-    ajax.open("GET", "http://zamger.etf.unsa.ba/wt/proizvodi.php?brindexa=16264", true);
-        ajax.send();
-    
-        return false;
-}

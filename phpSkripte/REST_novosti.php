@@ -9,8 +9,8 @@ function zag() {
 function rest_get($request, $data) { 
 
 $idvijesti = $data['ID'];
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-$veza->exec("set names utf8");
+  $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 if ($idvijesti==1000){
 $upit = $veza->prepare("SELECT * FROM novosti");
 $upit->bindValue(1, $idvijesti, PDO::PARAM_INT);
@@ -34,8 +34,8 @@ function rest_post($request, $data) {
 	$detaljnije = $data['detaljnije'];
 	$naslov = $data['naslov'];
 	$slika = $data['slika'];
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-	$veza->exec("set names utf8");
+   $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 
 $rezultat= $veza-> prepare( "INSERT INTO novosti (Autor, Naslov , Tekst, Detaljnije, Slika)
     VALUES (?,?,?,?,?)"
@@ -48,8 +48,8 @@ echo json_encode($arr);
 }
 function rest_delete($request,$data) { 
 $idkomentar = $data['ID'];
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-$veza->exec("set names utf8");
+   $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 $upit2 = $veza->prepare("delete from komentar where Novosti =?");
 $upit2->bindValue(1, $idkomentar, PDO::PARAM_INT);
 $upit2->execute();
@@ -69,8 +69,8 @@ function rest_put($request, $data) {
 	$naslov = $data['naslov'];
 	$slika = $data['slika'];
 	$ID=$data['ID'];
-  $veza = new PDO('mysql:host=localhost;dbname=dibioptics;charset=utf8', 'ezugor', 'password');
-$veza->exec("set names utf8");
+  $veza = new PDO("mysql:dbname=optikadibi;host=127.12.90.2;charset=utf8", "ediba", "dibac.DiBi");
+     $veza->exec("set names utf8");
 	  	$rezultat= $veza-> prepare( "UPDATE novosti SET Autor = ?, Naslov =?,Tekst=?, Detaljnije=?, Slika=? WHERE IDNovosti=?"); 
 
 		$rezultat->execute(array($autor,$naslov,$tekst,$detaljnije,$slika,$ID));

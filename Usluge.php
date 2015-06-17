@@ -14,7 +14,8 @@
 	
 <body id ="main">
 <header class="izbornik">
-	<img src="pictures/logo.jpg" alt="slikaca">
+	<img src="pictures/logo.png" alt="sk">
+
 
 <ul id="sddm">
    <li><a 
@@ -54,7 +55,7 @@
 
 
 <div class="podloga">
-<?php include 'login.php';?>
+
 <div class="dodatna">
 
 <br>
@@ -62,7 +63,7 @@
 	<div class="scroll2">
 <h3>Specijalizirana radionica za popravak i izradu svih vrsta naočala.</h3>
 Upotrebom dioptrijskih i sunčanih naočala često dolazi do oštećenja,lomova<br>
- I drugih promjena na naočalama što rezultira nemogučnošću daljnjeg korištenja.<br>
+ I drugih promjena na naočalama što rezultira nemogučnošću daljnjeg korištenja.<br><br>
 <p >
 <img src="pictures/stakla1.jpg" alt="slika" >
 </p>
@@ -78,6 +79,7 @@ Kod nas se brizi o vidu pristupa stručno i s posebnom pozornošću: od savjeta 
 najbolje zaštite očiju do odabira dioptrijskih okvira i sunčanih naočala.
 <br><br>
 <h3>Kontaktne leće i otopine</h3>
+<p><img src="pictures/Dibi2.jpg" alt="reklama3" title="reklama3"  /></p>
 Iz ponude kontaktnih leća možete odabrati: dnevne leće, dvotjedne leće, mjesečne leće, <br>
 tromjesečne leće, godišnje leće; leće za astigmatizam i multifokalne leće, leće u boji <br>
 te sve otopine za održavanje leća kao i kapi za oči.<br>
@@ -85,7 +87,10 @@ Nositelji kontaktnih leća, osim pregleda vida za leće, dobit će poduku o stav
  nošenju leća kao i stručne savjete o lećama i održavanju leća.<br><br>
 <h3>Velik izbor sunčanih i dioptrijskih okvira</h3>
 U ponudi imamo i veliki izbor sunčanih naočala i dioptrijskih okvira vodećih robnih marki<br>
- koje potpisuju poznati modni kreatori: Burberry, Gucci, Giorgio Armani, Persol, Prada,<br><br>
+ koje potpisuju poznati modni kreatori: Burberry, Gucci, Giorgio Armani, Persol, Prada,
+ <p >
+<img src="pictures/Dibi3.jpg" alt="slika" >
+</p><br><br>
 <h3>Besplatna dostava</h3>
 Ukoliko je iznos narudžbe veći od 150,00 kn darujemo besplatnu dostavu!<br><br>
 <h3>Mogućnost plaćanja gotovinom i karticama</h3>
@@ -94,60 +99,21 @@ Nudimo razne privlačne mogućnosti plaćanja koje neće odmah pretrpati Vaš ra
   do određenog broja rata. Obrada rata odvija se izravno na mjestu kupovine.
 </div>
 </div>
+<div class="desniKontakt3">
 
-
-<div class="desniKontakt">
-<h2>Pošaljite nam upit </h2>
-<br><h3>U slučaju nejasnoća,<br>
- pošaljite nam upit,<br> rado ćemo pomoći</h3>
-<form>
-		<label > Ime: * </label><br>
-		<input type="text" value="" ><br>
-		<label>E-mail: *</label><br>
-		<input type="email" value="" ><br>
-		<label >Telefon: *</label><br>
-		<input type="text" value=""  ><br>
-		<label>Adresa: *</label><br>
-		<input type="text" value=""   ><br><br>
-		<label >Poruka:</label><br>
-		<textarea  rows="7" cols="52" ></textarea><br><br>
-		<input type="submit" value="Pošalji poruku" >
-
-</form>
-
+		<h2>Saradnice:</h2>
+		<ul class="lista1">
+			<li><a href="http://jojo-optika.hr/">Optika Jo-jo</a></li>
+			<li><a href="http://www.optika-durak.ba/">Optika Durak</a></li>
+			<li><a href="http://www.ghetaldus.hr/">Ghetaldus Optika</a> </li>
+			<li><a href="http://www.indeks.ba/preduzece/OPTIKA_APOLO_Sarajevo.html">Optika Apolo</a></li>
+			<li><a href="http://optika-anda.com/">Optika Anda</a></li>
+		</ul>
 </div>
 
-<div class="tabela_dodavanja">
+	
 
 
-    <form class="usluge">
-        <br>
-        <div> Odaberite opciju: </div>
-        <select id="akcija" onchange="izvrsi()">
-        <option value = "Dodavanje">Dodavanje</option>
-        <option value = "Promjena">Promjena</option>
-        <option value = "Brisanje">Brisanje</option>
-        </select><br><br>
-        <label>Naziv: </label><br>
-        <input type="text" id="inaziv"><br>
-        <label>Cijena: </label><br>
-        <textarea id="cijena"></textarea><br>
-        <label>Opis: </label><br>
-        <textarea id="op"></textarea><br>
-		 <label>Količina: </label><br>
-        <textarea id="kol"></textarea><br>
-      <br><br>
-        <input class="dodaj" type="button" value="Dodaj" onClick="change()">
-    </form>
- <div><input class="ispisiusluge" type="button" value="Prikaz tabele" onclick="prikazi()"></div><br><br><br>
-        <div class="ostaleusluge">
-            <table class="usluge-opis">
-                
-            </table>
-        </div>
-    
-
-</div>
 
 <p>
 </div>

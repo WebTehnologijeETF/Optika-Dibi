@@ -16,9 +16,8 @@
 	</head>
 	
 <body  id="main">
-
 <header class="izbornik">
-	<img src="pictures/logo.jpg" alt="sl">
+<img src="pictures/logo.png" alt="sk">
 
 <ul id="sddm">
    <li><a 
@@ -58,9 +57,10 @@
 
 
 <div class="podloga" >
-<script src="jsFiles/ucitavanje.js"></script>
-<?php include 'login.php';?>
 
+<script src="jsFiles/ucitavanje.js"></script>
+
+<div class="dodatna">
 <div class="lijeviKontakt">
 <h2><a href="Naslovnica.php">DIBI OPTIKA Hotonj</a></h2><br><br>
 				<h3>Poslovnice</h3>
@@ -110,7 +110,14 @@
 <style>
 .error {color: #5970B2;}
 </style>
-<div id ="kontaktForma">
+
+
+<div class="desniKontakt" id="kontaktForma">
+<h2>Pošaljite nam upit </h2>
+<br><h3>U slučaju nejasnoća,<br>
+ pošaljite nam upit,<br> rado ćemo pomoći</h3>
+
+
 		<label title="prvi znak mora biti slovo" >Ime *</label><br>                                                                  
 		<input type="text"  title="prvi znak mora biti slovo" id ="name" name="name"  > <span class="error" id="error1">
 		<img alt='slika5'  class='NOTOK' id='slika1' src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" style='visibility:"hidden"'/>
@@ -120,65 +127,44 @@
 		
 		<label title="unesite validan email" >E-mail *</label><br>
 		<input type="email"  title="unesite validan email" id ="email" name="email"  > <span class="error" id="error2">
-		<img alt='slika6'  class='NOTOK' id='slika2' ></span><br>
+		<img alt='slika6'  class='NOTOK' id='slika2' src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" style='visibility:"hidden"' /></span><br>
 		
 	
 		<label title="Telefon mora biti u obliku xxx-xxx">Telefon *</label><br>
 		<input type="text"  title="Telefon mora biti u obliku xxx-xxx" id ="telefon" name="telefon" > <span class="error" id="error3">
-		<img alt='slika7'  class='NOTOK' id='slika3' ></span><br>
+		<img alt='slika7'  class='NOTOK' id='slika3' src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" style='visibility:"hidden"' /></span><br>
 			
 			
-		<label>Godište </label><br>
-		<input type="number" name="godiste" min="1910" max="1997" id ="godiste"> <span class="error" id="error4">
-		<img alt='slika8'  class='NOTOK' id='slika4'></span><br><br>
-			<label>Password: </label><br>
-		<input type="password" name="pass"  id ="pass" > <br><br>
 		
-		
-		<label>Ponovi password: </label><br>
-		<input type="password" name="pass2"  id ="pass2" > <span class="error" id="error5">
-		<img alt='slika9'  class='NOTOK' id='slika5'></span><br><br>
-		
-		
-
-		
-		<label title="država" >Država</label><br>
-		<input type="text" value="" title="Unesite državu" id ="drzava" name="drzava" ><img alt="slika9" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika5"><label title="drzava" class="not" id="upozorenje5" >Unesite validnu državu</label><br>
-		<label title="valuta"  >Valuta</label><br>
-		<input type="text" value="" title="Unesite valutu" id ="valuta" name="valuta" ><img alt="slika10" src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" class="NOTOK" id="slika6"><label title="tri slova" class="not" id="upozorenje6" >Unesite odgovarajuću valutu za državu</label><br>
-		<label title="Morate unijeti validno ime">Poruka </label><br>
-		<textarea title="Morate unijeti validno ime" id ="poruka"  name="comment" value="" ></textarea><br><br>
+			<label title="Unesite adresu">Adresa *</label><br>
+		<input type="text"  title="Unesite adresu" id ="adresa" name="adresa" > <span class="error" id="error4">
+		<img alt='slika8'  class='NOTOK' id='slika4' src="https://zamger.etf.unsa.ba/images/16x16/zad_ok.png" style='visibility:"hidden"' /></span><br>
 		
 	
- 	
+		<label title="Morate unijeti validno ime">Poruka </label><br>
+		<textarea title="Morate unijeti validno ime" id ="poruka"  name="comment"  ></textarea><br><br>
+		
 
 		&nbsp;&nbsp;<input class="my-stylish-button" type="button" value="Pošalji poruku" onClick="kontaktValidacija(); return false;" id ="dugme">
-			     <input class="my-stylish-button" name="action" type="reset" value="Reset"><br><br>
+			   <br><br>
 				 
-			
-		<label >Search Google:</label>
-  <input type="search" name="googlesearch" id ="pretrazi">
-
-</div>
-			
-			
-</div>
-
-
-</div>
-
-	<img src="pictures/Dibi3.jpg" alt="reklama3" title="reklama3"  />
-	<img src="pictures/Dibi4.jpg" alt="reklama4" title="reklama4"  />
-
-
-
-	<p >
 	
+
+</div>			
+</div>
+
+</div>
+	
+	<p >
+</div>
+	
+
+</div>		
 	
 
 	<footer id="Copy">
     Copyright &copy; Ediba Žugor 2015.
 	</footer>
-</div>		
+
 	
 </body>
